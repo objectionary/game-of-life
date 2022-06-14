@@ -1,12 +1,12 @@
 #include "config.cpp"
 #include "outputs.cpp"
 #include "cell.cpp"
+#pragma once
 
 class Grid : public Outputs {
 
-private:
+public:
     int size;
-private:
     vector<vector<Cell>> g;
 
     int count(int x, int y) {
@@ -20,7 +20,6 @@ private:
         return cnt;
     }
 
-public:
     Grid() {
         getSize();
         int sz;
@@ -35,6 +34,7 @@ public:
 
     void printGrid() {
         _setmode(_fileno(stdout), _O_U16TEXT);
+  //        FILE* myFile = fopen("text.txt", "r");
         int sz = size;
         for (int i = 0; i < sz * 2 + 5; ++i) {
             wprintf(L"-");

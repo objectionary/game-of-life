@@ -1,7 +1,10 @@
 #include "config.cpp"
 #include "game.cpp"
+#include "test.cpp"
 
-
-int main() {
-    Game g = Game();
+int main()
+{
+   
+    test();
+    // Game g = Game();
 }
