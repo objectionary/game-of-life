@@ -5,6 +5,9 @@
 int main()
 {
    
+   #ifdef TESTING
     test();
-    // Game g = Game();
+    #else
+    Game g = Game("");
+ #endif
 }

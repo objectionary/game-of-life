@@ -3,9 +3,8 @@
 #include <io.h>
 #include <iostream>
 #include <fcntl.h>
-#include <vector>
-#include <cassert>
 #include <bits/stdc++.h>
+//#define TESTING
 
 using namespace std;
 
