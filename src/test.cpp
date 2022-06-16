@@ -1,3 +1,4 @@
+#pragma once
 #include "config.cpp"
 #include "grid.cpp"
 class gridTest : public Grid
