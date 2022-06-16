@@ -1,7 +1,7 @@
 #pragma once
 #include "config.cpp"
 #include "game.cpp"
-#include "test.cpp"
+#include "../Tests/test.cpp"
 
 int main()
 {
