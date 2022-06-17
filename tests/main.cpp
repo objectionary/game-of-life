@@ -1,15 +1,15 @@
 #pragma once
-#include "config.cpp"
-#include "game.cpp"
+#include "../src/config.cpp"
+#include "../src/game.cpp"
 #include "../Tests/test.cpp"
 
 int main()
 {
-   
-   #ifdef TESTING
+
+#ifdef TESTING
     test();
-    #else
+#else
     Game g = Game("");
-    
- #endif
+
+#endif
 }

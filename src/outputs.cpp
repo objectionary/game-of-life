@@ -1,6 +1,5 @@
-#pragma once
 #include "config.cpp"
-
+#pragma once
 class Outputs {
 protected:
     static void getSize() {

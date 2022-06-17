@@ -1,7 +1,7 @@
-#pragma once
-#include "config.cpp"
 #include "outputs.cpp"
 #include "cell.cpp"
+#pragma once
+
 class Grid : public Outputs
 {
 

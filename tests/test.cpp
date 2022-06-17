@@ -1,6 +1,4 @@
-#pragma once
-#include "config.cpp"
-#include "grid.cpp"
+#include "../src/grid.cpp"
 class gridTest : public Grid
 {
 public:

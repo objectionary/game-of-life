@@ -1,7 +1,5 @@
-#pragma once
 
 #include "grid.cpp"
-#include "config.cpp"
 
 class Game: public Grid {
 
