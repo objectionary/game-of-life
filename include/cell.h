@@ -6,7 +6,6 @@
 #define LIFE_CELL_H
 
 
-
 class Cell {
 private:
     bool curState = false;
@@ -20,7 +19,6 @@ public:
 
     bool getCurState();
 };
-
 
 
 #endif //LIFE_CELL_H

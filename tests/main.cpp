@@ -1,13 +1,6 @@
 #include "../include/config.h"
 #include "../include/game.h"
 
-int main()
-{
-
-#ifdef TESTING
-    test();
-#else
+int main() {
     Game g = Game("");
-
-#endif
 }

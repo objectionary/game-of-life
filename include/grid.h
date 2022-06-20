@@ -5,12 +5,12 @@
 #include "../include/outputs.h"
 #include "../include/cell.h"
 #include "../include/config.h"
-class Grid : public Outputs
-{
+
+class Grid : public Outputs {
 
 public:
     int size;
-    vector<vector<Cell>> g;
+    vector <vector<Cell>> g;
     fstream my_file;
 
     void close();
@@ -20,7 +20,9 @@ public:
     Grid(string filename);
 
     void printGrid();
-    void Set(string filename); 
+
+    void Set(string filename);
+
     void nextGen();
 };
 
