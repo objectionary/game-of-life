@@ -5,20 +5,19 @@
 #ifndef LIFE_CELL_H
 #define LIFE_CELL_H
 
-
 class Cell {
 private:
-    bool curState = false;
-    bool newState = false;
+  bool curState = false;
+  bool newState = false;
+
 public:
-    void changeNewState(bool val);
+  void changeNewState(bool val);
 
-    void changeCurState();
+  void changeCurState();
 
-    void setState(bool val);
+  void setState(bool val);
 
-    bool getCurState();
+  bool getCurState();
 };
 
-
-#endif //LIFE_CELL_H
+#endif // LIFE_CELL_H

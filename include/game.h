@@ -4,11 +4,10 @@
 
 #include "grid.h"
 
-
 class Game : public Grid {
 
 public:
-    Game(string filename);
+  Game();
 };
 
-#endif //LIFE_GAME_H
+#endif // LIFE_GAME_H

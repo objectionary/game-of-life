@@ -5,13 +5,13 @@
 #ifndef LIFE_CONFIG_H
 #define LIFE_CONFIG_H
 
-#include <stdio.h>
+#include <vector>
+#include <fcntl.h>
 #include <io.h>
 #include <iostream>
-#include <fcntl.h>
-#include <bits/stdc++.h>
+#include <stdio.h>
 //#define TESTING
 
 using namespace std;
 
-#endif //LIFE_CONFIG_H
+#endif // LIFE_CONFIG_H
