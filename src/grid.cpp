@@ -1,21 +1,14 @@
-#include "outputs.cpp"
+#include "../include/outputs.h"
 #include "../include/cell.h"
-#pragma once
+#include "../include/grid.h"
 
-class Grid : public Outputs
-{
 
-public:
-    int size;
-    vector<vector<Cell>> g;
-    fstream my_file;
-
-    void close()
+    void Grid::close()
     {
         this->my_file.close();
     }
 
-    int count(int x, int y)
+    int Grid::count(int x, int y)
     {
         int cnt = 0;
         for (int i = x - 1; i <= x + 1; ++i)
@@ -30,7 +23,7 @@ public:
         return cnt;
     }
 
-    Grid(string filename)
+    Grid::Grid(string filename)
     {
 
         int sz;
@@ -55,7 +48,7 @@ public:
 #endif
     }
 
-    void printGrid()
+    void Grid::printGrid()
     {
         _setmode(_fileno(stdout), _O_U16TEXT);
         //        FILE* myFile = fopen("text.txt", "r");
@@ -88,7 +81,7 @@ public:
         wprintf(L"\n");
     }
 
-    void Set(string filename)
+    void Grid::Set(string filename)
     {
         int n;
 
@@ -119,7 +112,7 @@ public:
 
     }
 
-    void nextGen()
+    void Grid::nextGen()
     {
         for (int i = 0; i < size; ++i)
         {
@@ -144,4 +137,3 @@ public:
             }
         }
     }
-};

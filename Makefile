@@ -1,7 +1,7 @@
 source := $(wildcard **/*.cpp)
 objects := ${source:.cpp=.o}
 run: $(objects)
-	g++ -o run tests/main.o src/cell.o
+	g++ -o run $(objects)
 %.o: %.cpp tests/%.cpp
 	g++ $@ -c $<
 clean:

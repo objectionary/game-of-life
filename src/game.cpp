@@ -1,10 +1,6 @@
 
-#include "grid.cpp"
-
-class Game: public Grid {
-
-public:
-    Game(string filename) : Grid(filename)
+#include "../include/game.h"
+    Game:: Game(string filename) : Grid(filename)
     {
         Set("");
         while (true) {
@@ -20,4 +16,3 @@ public:
             }
         }
     }
-};

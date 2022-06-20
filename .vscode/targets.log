@@ -9,7 +9,7 @@ make: *** No rule to make target 'all'.  Stop.
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Mon Jun 20 12:03:28 2022
+# Make data base, printed on Mon Jun 20 12:27:16 2022
 
 # Variables
 
@@ -29,7 +29,8 @@ VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-f5ea624c-2e22-42e6-b27f-909a57dfb4
 VSCODE_CWD = C:\Users\User\CLionProjects
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
-# environment
+# envi 
+ronment
 SYSTEMROOT = C:\WINDOWS
 # environment
 PROCESSOR_LEVEL = 6
@@ -64,8 +65,7 @@ LANG = C
 # default
 .LOADED := 
 # environment
-TMP =  
-C:\Users\User\AppData\Local\Temp
+TMP = C:\Users\User\AppData\Local\Temp
 # default
 .INCLUDE_DIRS = .
 # environment
@@ -123,7 +123,7 @@ HOMEPATH = \Users\User
 # default
 MAKECMDGOALS := all
 # makefile (from 'Makefile', line 2)
-objects := src/cell.o src/game.o src/grid.o src/outputs.o tests/main.o tests/test.o
+objects := src/cell.o src/game.o src/grid.o src/outputs.o tests/main.o
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
@@ -201,7 +201,8 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 TEMP = C:\Users\User\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\ddf78b73f802b4b105ac4da8ec09dfcf-1.68.1-main-sock
+VSCODE_I 
+PC_HOOK = \\.\pipe\ddf78b73f802b4b105ac4da8ec09dfcf-1.68.1-main-sock
 # default
 .RECIPEPREFIX := 
 # automatic
@@ -217,10 +218,9 @@ VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # makefile (from 'Makefile', line 1)
-source := src/cell.cpp src/game.cpp src/grid.cpp src/outputs.cpp tests/main.cpp tests/test.cpp
+source := src/cell.cpp src/game.cpp src/grid.cpp src/outputs.cpp tests/main.cpp
 # default
-.FEATURES := target-specific order-only second-exp 
-ansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
 PROCESSOR_REVISION = 8e09
 # environment
@@ -234,12 +234,12 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 9, GenuineIntel
 
 # Directories
 
-# include (key c:/Users/User/CLionProjects/Life/include, mtime 1655715512): 5 files, no impossibilities.
-# src (key c:/Users/User/CLionProjects/Life/src, mtime 1655715566): 7 files, no impossibilities.
-# . (key c:/Users/User/CLionProjects/Life, mtime 1655715804): 12 files, no impossibilities.
-# tests (key c:/Users/User/CLionProjects/Life/tests, mtime 1655715060): 7 files, no impossibilities.
+# include (key c:/Users/User/CLionProjects/Life/include, mtime 1655716899): 7 files, no impossibilities.
+# src (key c:/Users/User/CLionProjects/Life/src, mtime 1655717196): 10 files, no impossibilities.
+# . (key c:/Users/User/CLionProjects/Life, mtime 1655717199): 13 files, no impossibilities.
+# tests (key c:/Users/User/CLionProjects/Life/tests, mtime 1655717198): 7 files, no impossibilities.
 
-# 31 files, no impossibilities in 4 directories.
+# 37 files, no impossibilities in 4 directories.
 
 # Implicit Rules
 
@@ -253,7 +253,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 9, GenuineIntel
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-20 12:01:54
+#  Last modified 2022-06-20 12:26:19
 #  File has been updated.
 #  Successfully updated.
 
@@ -279,12 +279,6 @@ clean:
 	del /f tests\\*.o
 
 # Not a target:
-tests/test.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -297,12 +291,13 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
-run: src/cell.o src/game.o src/grid.o src/outputs.o tests/main.o tests/test.o
+run: src/cell.o src/game.o src/grid.o src/outputs.o tests/main.o
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  Modification time 
+ never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 4):
-	g++ -o run tests/main.o src/cell.o
+	g++ -o run $(objects)
 
 # Not a target:
 src/cell.o:
@@ -323,19 +318,19 @@ src/outputs.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/28=0%
+# Load=11/1024=1%, Rehash=0, Collisions=0/26=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 39 / storage = 371 B / avg = 9 B
-# current buf: size = 8174 B / used = 371 B / count = 39 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 44 / storage = 402 B / avg = 9 B
+# current buf: size = 8174 B / used = 402 B / count = 44 / avg = 9 B
 
-# strcache performance: lookups = 54 / hit rate = 27%
+# strcache performance: lookups = 59 / hit rate = 25%
 # hash-table stats:
-# Load=39/8192=0%, Rehash=0, Collisions=0/54=0%
-# Finished Make data base on Mon Jun 20 12:03:28 2022
+# Load=44/8192=1%, Rehash=0, Collisions=0/59=0%
+# Finished Make data base on Mon Jun 20 12:27:16 2022
 
  

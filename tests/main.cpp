@@ -1,7 +1,5 @@
-#pragma once
 #include "../include/config.h"
-#include "../src/game.cpp"
-#include "../Tests/test.cpp"
+#include "../include/game.h"
 
 int main()
 {
