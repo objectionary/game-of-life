@@ -12,8 +12,6 @@ public:
   int size;
   vector<vector<Cell>> g;
 
-  void close();
-
   int count(int x, int y);
 
   Grid();
