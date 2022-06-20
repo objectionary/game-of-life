@@ -1,4 +1,4 @@
-#include "config.cpp"
+#include "../include/config.h"
 #pragma once
 class Outputs {
 protected:

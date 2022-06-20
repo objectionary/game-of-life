@@ -1,5 +1,5 @@
 #include "outputs.cpp"
-#include "cell.cpp"
+#include "../include/cell.h"
 #pragma once
 
 class Grid : public Outputs

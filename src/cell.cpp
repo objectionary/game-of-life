@@ -1,25 +1,18 @@
-#pragma once
+#include "../include/cell.h"
 
-
-class Cell {
-private:
-    bool curState = false;
-    bool newState = false;
-public:
-    void changeNewState(bool val) {
+    void Cell::changeNewState(bool val) {
         newState = val;
     }
 
-    void changeCurState() {
+    void Cell::changeCurState() {
         curState = newState;
     }
 
-    void setState(bool val) {
+    void Cell::setState(bool val) {
         curState = val;
     }
 
-    bool getCurState() {
+    bool Cell::getCurState() {
         return curState;
     }
-};
 

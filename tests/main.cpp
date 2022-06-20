@@ -1,5 +1,5 @@
 #pragma once
-#include "../src/config.cpp"
+#include "../include/config.h"
 #include "../src/game.cpp"
 #include "../Tests/test.cpp"
 

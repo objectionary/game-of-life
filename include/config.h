@@ -1,3 +1,9 @@
+//
+// Created by User on 6/20/2022.
+//
+
+#ifndef LIFE_CONFIG_H
+#define LIFE_CONFIG_H
 
 #include <stdio.h>
 #include <io.h>
@@ -8,3 +14,4 @@
 
 using namespace std;
 
+#endif //LIFE_CONFIG_H
