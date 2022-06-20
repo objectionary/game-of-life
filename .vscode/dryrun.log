@@ -1,5 +1,0 @@
-make.exe --dry-run --keep-going --print-directory
-make: Entering directory 'c:/Users/User/CLionProjects/Life'
-g++ -o run src/cell.o src/game.o src/grid.o src/outputs.o tests/main.o
-make: Leaving directory 'c:/Users/User/CLionProjects/Life'
- 

@@ -1,18 +1,9 @@
 #include "../include/cell.h"
 
-    void Cell::changeNewState(bool val) {
-        newState = val;
-    }
+void Cell::changeNewState(bool val) { newState = val; }
 
-    void Cell::changeCurState() {
-        curState = newState;
-    }
+void Cell::changeCurState() { curState = newState; }
 
-    void Cell::setState(bool val) {
-        curState = val;
-    }
+void Cell::setState(bool val) { curState = val; }
 
-    bool Cell::getCurState() {
-        return curState;
-    }
-
+bool Cell::getCurState() { return curState; }
