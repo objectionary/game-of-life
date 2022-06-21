@@ -1,6 +1,7 @@
 
 #include "../include/game.h"
-Game::Game() : Grid() {
+#include <unistd.h>
+Game::Game() {
   Set();
   while (true) {
     printGrid();
@@ -8,7 +9,7 @@ Game::Game() : Grid() {
     string s;
     cin >> s;
     if (s == "n") {
-      system("clear");
+      cout << "\033[2J\033[1;1H";
       nextGen();
     } else {
       exit(0);

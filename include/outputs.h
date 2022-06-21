@@ -6,9 +6,9 @@
 
 class Outputs {
 public:
-  void getSize();
+  static void getSize();
 
-  void askCords(int sz);
+  static void askCords(int sz);
 };
 
 #endif // LIFE_OUT_H

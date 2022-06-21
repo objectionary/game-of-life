@@ -17,7 +17,7 @@ public:
 
   void setState(bool val);
 
-  bool getCurState();
+  bool getCurState() const;
 };
 
 #endif // LIFE_CELL_H

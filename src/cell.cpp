@@ -6,4 +6,4 @@ void Cell::changeCurState() { curState = newState; }
 
 void Cell::setState(bool val) { curState = val; }
 
-bool Cell::getCurState() { return curState; }
+bool Cell::getCurState() const { return curState; }
