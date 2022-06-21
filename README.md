@@ -23,6 +23,22 @@ According to [previous research](https://github.com/yegor256/fibonacci) measurem
     
 ## Install
 
+To run it, just do:
+
+```
+$ make
+$ ./run
+```
+
+If you want to clean the environment:
+```
+$ make clean
+```
+
+If you want to formate all .cpp files (clang-format will be called to do so):
+```
+$ make fix
+```
 
 ## Structure
 
