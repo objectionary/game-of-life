@@ -2,9 +2,13 @@
 #include "../include/cell.h"
 #include "../include/outputs.h"
 
-int Grid::count(int x, int y) {
+int Grid::count(int x, int y)
+
+{
   int cnt = 0;
+
   for (int i = x - 1; i <= x + 1; ++i) {
+
     for (int j = y - 1; j <= y + 1; ++j) {
       if (i < 0 || i > size - 1 || j < 0 || j > size - 1)
         continue;
@@ -24,7 +28,7 @@ Grid::Grid() {
   for (int i = 0; i < sz; ++i) {
     g[i].resize(sz);
   }
-  system("cls");
+  system("clear");
 }
 
 void Grid::printGrid() {
@@ -61,7 +65,7 @@ void Grid::Set() {
     x--, y--;
     g[x][y].setState(true);
   }
-  system("cls");
+  system("clear");
 }
 
 void Grid::nextGen() {

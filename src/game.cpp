@@ -8,7 +8,7 @@ Game::Game() : Grid() {
     string s;
     cin >> s;
     if (s == "n") {
-      system("cls");
+      system("clear");
       nextGen();
     } else {
       exit(0);
