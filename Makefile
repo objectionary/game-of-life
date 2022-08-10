@@ -19,17 +19,17 @@
 # SOFTWARE.
 
 
-FAST_SOURCES := $(wildcard fast/src/*.cpp)
-FAST_HEADERS := $(wildcard fast/**/*.h)
+FAST_SOURCES := $(wildcard Fast/src/*.cpp)
+FAST_HEADERS := $(wildcard Fast/**/*.h)
 FAST_OBJECTS := ${FAST_SOURCES:.cpp=.o}
 
-FAST_TEST_SOURCES := $(filter-out fast/src/main.cpp, $(shell find fast/  -type f -name *.cpp))
+FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(shell find Fast/  -type f -name *.cpp))
 
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
-all: slow fast eo-compile
+all: Slow fast eo-compile
 
-slow: slow_life slow_test
+Slow: slow_life slow_test
 
 fast: fast_life fast_test 
   
@@ -40,13 +40,13 @@ fast_test: $(FAST_TEST_OBJECTS)
 	@g++ $(FAST_TEST_OBJECTS) -lboost_unit_test_framework -o fast_test 
 	./fast_test --log_level=all
 
-%.o: fast/**/%.cpp  $(FAST_HEADERS)
+%.o: Fast/**/%.cpp  $(FAST_HEADERS)
 	@g++ $@ -o $< 
 
-SLOW_SOURCES := $(wildcard slow/src/*.cpp)
-SLOW_HEADERS := $(wildcard slow/**/*.h)
+SLOW_SOURCES := $(wildcard Slow/src/*.cpp)
+SLOW_HEADERS := $(wildcard Slow/**/*.h)
 SLOW_OBJECTS := ${SLOW_SOURCES:.cpp=.o}
-SLOW_TEST_SOURCES := $(filter-out slow/src/main.cpp, $(shell find slow/  -type f -name *.cpp))
+SLOW_TEST_SOURCES := $(filter-out Slow/src/main.cpp, $(shell find Slow/  -type f -name *.cpp))
 SLOW_TEST_OBJECTS := ${SLOW_TEST_SOURCES:.cpp=.o}
 
 slow_life: $(SLOW_OBJECTS)
@@ -56,8 +56,9 @@ slow_test: $(SLOW_TEST_OBJECTS)
 	g++ $(SLOW_TEST_OBJECTS) -lboost_unit_test_framework -lboost_program_options -o slow_test
 	./slow_test --log_level=all
 
-%.o:  slow/**/%.cpp  $(SLOW_HEADERS)
+%.o:  Slow/**/%.cpp  $(SLOW_HEADERS)
 	g++ $@ -o $< 
+
 
 ALL_SOURCES := $(SLOW_SOURCES) $(FAST_SOURCES)
 ALL_HEADERS := $(FAST_HEADERS) $(SLOW_HEADERS)
