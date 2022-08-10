@@ -1,0 +1,313 @@
+# Copyright (c) 2022 Anton Shatokhin
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
++alias org.eolang.txt.sprintf
++alias org.eolang.io.stdout
++alias org.eolang.txt.sscanf
++alias org.eolang.math.number
++alias org.eolang.collections.list
+
+[x y] > pair!
+
+[str] > find!
+  [id] > rec!
+    if. > @!
+      lt.
+        id
+        str.length
+      if.
+        eq.
+          str.slice id 1
+          "x"
+        id
+        ^.rec
+          id.plus 1
+      -1
+  rec 0 > @!
+
+[str] > getSize!
+  find str > pos!
+  str.length > len!
+  (sscanf "%d" (str.slice 0 pos)).at 0 > n!
+  (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0 > m!
+  pair n m > @!
+
+[id arg] > parseCycle!
+  if. > @!
+    lt.
+      id
+      arg.length
+    seq
+      (sscanf "%s" (arg.at id)).at 0 > val!
+      if.
+        eq.
+          val
+          "cycle"
+        (sscanf "%d" (arg.at (id.plus 1))).at 0
+        ^.parseCycle
+          id.plus 1
+          arg
+    10
+
+[id arg] > parseSize!
+  if. > @!
+    lt.
+      id
+      arg.length
+    seq
+      (sscanf "%s" (arg.at id)).at 0 > val!
+      if.
+        eq.
+          val
+          "size"
+        getSize ((sscanf "%s" (arg.at (id.plus 1))).at 0)
+        ^.parseSize
+          id.plus 1
+          arg
+    pair 3 3
+
+[t] > changePair!
+  t.x > a!
+  t.y > b!
+  a.minus 1 > c!
+  b.minus 1 > d!
+  pair c d > @!
+
+[arg] > parsePut!
+  [id arr] > rec!
+    if. > @!
+      lt.
+        id
+        ^.arg.length
+      seq
+        (sscanf "%s" (arg.at id)).at 0 > val!
+        if.
+          eq.
+            val
+            "put"
+          ^.rec
+            id.plus 2
+            with.
+              arr
+              changePair
+                getSize ((sscanf "%s" (arg.at (id.plus 1))).at 0)
+          ^.rec
+            id.plus 1
+            arr
+      arr
+  rec 0 * > @!
+
+[state] > cell!
+
+[cnt c] > cellLive!
+  if. > @!
+    or.
+      and.
+        c.state
+        or.
+          cnt.eq 2
+          cnt.eq 3
+      and.
+        not.
+          c.state
+        cnt.eq 3
+    cell TRUE
+    cell FALSE
+
+[put id m] > inside!
+  (number id).mod m > y!
+  id.div m > x!
+  [pos] > rec!
+    if. > @!
+      lt.
+        pos
+        ^.put.length
+      if.
+        and.
+          eq.
+            ^.x
+            (^.put.at pos).x
+          eq.
+            ^.y
+            (^.put.at pos).y
+        TRUE
+        ^.rec
+          pos.plus 1
+      FALSE
+  rec 0 > @!
+
+[sz put m] > makeGrid!
+  [id res] > build!
+    if. > @!
+      lt.
+        id
+        ^.sz
+      if.
+        inside
+          ^.put
+          id
+          ^.m
+        ^.build
+          id.plus 1
+          with.
+            res
+            cell TRUE
+        ^.build
+          id.plus 1
+          with.
+            res
+            cell FALSE
+      res
+  build 0 * > @!
+
+[s1 s2] > join!
+  s1.as-bytes > x1!
+  s2.as-bytes > x2!
+  x1.concat x2 > x3!
+  x3.as-string > @!
+
+[field m] > print!
+  memory 0 > x
+  seq > @!
+    x.write 0
+    field.length > sz!
+    while.
+      x.lt (sz.minus 1)
+      [i]
+        seq > @!
+          (number x').mod m > rem!
+          if. > res
+            eq.
+              rem
+              m.minus 1
+            join
+              if.
+                (field.at x).state
+                "o"
+                "."
+              "\n"
+            join
+              if.
+                (field.at x).state
+                "o"
+                "."
+              " "
+          x.write
+            x.plus 1
+          stdout
+            sprintf
+              "%s"
+              res
+    TRUE
+
+[x y field m] > check!
+  field.length > sz!
+  sz.div m > n!
+  if. > @!
+    and.
+      and.
+        x.lt n
+        x.gte 0
+      and.
+        y.lt m
+        y.gte 0
+    seq
+      (x.times m).plus y > pos!
+      if.
+        (field.at pos).state
+        1
+        0
+    0
+
+[field id m] > count!
+  (number id).mod m > idw!
+  id.div m > idd!
+  idd.minus 1 > idd1!
+  idd.plus 1 > idd2!
+  idw.minus 1 > idw1!
+  idw.plus 1 > idw2!
+  check idd1 idw1 field m > c1!
+  check idd1 idw field m > c2!
+  check idd1 idw2 field m > c3!
+  check idd idw1 field m > c4!
+  check idd idw2 field m > c5!
+  check idd2 idw1 field m > c6!
+  check idd2 idw field m > c7!
+  check idd2 idw2 field m > c8!
+  * c1 c2 c3 c4 c5 c6 c7 c8 > arr!
+  reduce. > @!
+    list
+      arr
+    0
+    [acc x]
+      acc.plus x > @!
+
+[field m] > nextGen!
+  reducei. > @!
+    list
+      field
+    *
+    [accum i x]
+      seq > @!
+        count > cnt!
+          ^.field
+          i
+          ^.m
+        with.
+          accum
+          cellLive
+            cnt
+            x
+
+[id max field m] > process!
+  if. > @!
+    lt.
+      id
+      max
+    seq
+      print field m
+      stdout
+        sprintf
+          "%s"
+          "\n"
+      ^.process
+        id.plus 1
+        max
+        nextGen
+          field
+          m
+        m
+    TRUE
+[args...] > life
+  parseCycle 0 args > cycle!
+  parseSize 0 args > size!
+  parsePut args > put!
+  size.x > n!
+  size.y > m!
+  makeGrid > field!
+    n.times m
+    put
+    m
+  nextGen field m > res!
+  process > @!
+    0
+    cycle
+    field
+    m
