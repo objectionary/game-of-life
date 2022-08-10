@@ -30,19 +30,19 @@ vector<vector<Cell>> Field::rec_create_vector(
   Int n, Int m, Int cur_n, Int cur_m, vector<vector<Cell>> res) {
   if (Eq(m, cur_m).get().get()) {
     //
-    counter += 5;
+    counter += 5;  // NOLINT
     //
     return rec_create_vector(n, m, Int(Add(cur_n, Int(1)).get()), Int(0), res);
   }
   if (Eq(n, cur_n).get().get()) {
     //
-    counter += 1;
+    counter += 1;  // NOLINT
     //
     return res;
   }
   if (Eq(Int(res.size()), Int(Add(cur_n, Int(1)).get())).get().get()) {
     //
-    counter += 11;
+    counter += 11;  // NOLINT
     //
     res[cur_n.get()].emplace_back(Cell(Bool(false)));
     auto new_res = res;
@@ -50,7 +50,7 @@ vector<vector<Cell>> Field::rec_create_vector(
       n, m, cur_n, Int(Add(cur_m, Int(1)).get()), new_res);
   }
   //
-  counter += 7;
+  counter += 7;  // NOLINT
   //
   vector<Cell> a;
   a.emplace_back(Cell(Bool(false)));
@@ -61,7 +61,7 @@ vector<vector<Cell>> Field::rec_create_vector(
 
 vector<vector<Cell>> Field::make_grid(Int n, Int m) {
   //
-  counter += 5;
+  counter += 5;  // NOLINT
   //
   vector<vector<Cell>> arr;
   return rec_create_vector(Int(n), Int(m), Int(0), Int(0), arr);
@@ -74,7 +74,7 @@ Field Field::rec_add(Field cur, vector<pair<int, int>> s, int pos) {
   pair<int, int> x = s[pos];
 
   //
-  counter += 4;
+  counter += 4;  // NOLINT
   //
   return rec_add(
     cur.with(x.first - 1, x.second - 1, Cell(Bool(true))), s, pos + 1);
@@ -88,7 +88,7 @@ void Field::rec_line_print(Int depth) {
   }
   cout << "-";
   //
-  counter += 4;
+  counter += 4;  // NOLINT
   //
   rec_line_print(Int(Add(depth, Int(1)).get()));
 }

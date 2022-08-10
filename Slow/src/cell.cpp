@@ -25,7 +25,7 @@ bool Cell::status() { return state.get(); }
 
 Cell Cell::live(Int cnt) const {
   //
-  counter += 11;
+  counter += 11;  // NOLINT
   //
   auto res =
     Or(And(state, Or(Eq(cnt, Int(2)).get(), Eq(cnt, Int(3)).get()).get()).get(),
