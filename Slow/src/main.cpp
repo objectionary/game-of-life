@@ -37,11 +37,6 @@ void rec(Int depth, Int max, Bool flag, Field cur, Parse p) {
     return;
   }
   cur.print();
-
-  //
-  counter += 2;  // NOLINT
-  //
-
   Field next = cur.live();
   if (flag.get()) {
     cout << R"(If you want to play more press "n", else "q".)" << endl;
@@ -50,10 +45,8 @@ void rec(Int depth, Int max, Bool flag, Field cur, Parse p) {
     if (s != "n") {
       return;
     }
-    counter += 1;  // NOLINT
     rec(depth, max, Bool(true), next, p);
   } else {
-    counter += 2;  // NOLINT
     sleep(p.opts()["sleep"].as<int>());
     rec(Add(depth, Int(1)).get(), max, Bool(false), next, p);
   }

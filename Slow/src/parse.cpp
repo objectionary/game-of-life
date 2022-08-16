@@ -20,8 +20,6 @@
 
 #include "../include/parse.h"
 
-extern int counter;
-
 int Parse::length() const { return n; }
 
 int Parse::width() const { return m; }
@@ -85,9 +83,6 @@ vector<pair<int, int>> Parse::rec_cells(int pos, vector<pair<int, int>> p) {
   }
   pair<int, int> add = point(s[pos]);
   vector<pair<int, int>> x(p.size() + 1);
-  //
-  counter++;
-  //
   copy(p.begin(), p.end(), x.begin());
   x[p.size()] = add;
   return rec_cells(pos + 1, x);
@@ -95,10 +90,6 @@ vector<pair<int, int>> Parse::rec_cells(int pos, vector<pair<int, int>> p) {
 
 void Parse::cells() {
   vector<pair<int, int>> free;
-  //
-  counter++;
-  //
-
   points = rec_cells(0, free);
 }
 
