@@ -166,6 +166,9 @@ Field Field::live() {
 }
 
 Field Field::with(Int x, Int y, Cell a) {
+  //
+  counter += grid.size() * grid[0].size();
+  //
   vector<vector<Cell>> next = grid;
   next[x.get()][y.get()] = a;
   return Field(next);
