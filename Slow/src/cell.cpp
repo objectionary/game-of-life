@@ -23,10 +23,12 @@ extern int counter;
 
 bool Cell::status() { return state.get(); }
 
+Cell::Cell(Bool st) {
+  state = st;
+  counter++;
+}
+
 Cell Cell::live(Int cnt) const {
-  //
-  counter += 11;  // NOLINT
-  //
   auto res =
     Or(And(state, Or(Eq(cnt, Int(2)).get(), Eq(cnt, Int(3)).get()).get()).get(),
       And(Not(state).get(), Eq(cnt, Int(3)).get()).get())

@@ -37,7 +37,7 @@ private:
 
 public:
   Field(Int n, Int m) : Field(make_grid(n, m)) {}
-  Field(vector<vector<Cell>> g) : grid(g) {}
+  Field(vector<vector<Cell>> g);
 
   vector<vector<Cell>> field();  // getters
 

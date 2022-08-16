@@ -31,7 +31,7 @@ private:
   Bool state;
 
 public:
-  Cell(Bool st) : state(st) {}
+  Cell(Bool st);
   Cell() : Cell(Bool(false)) {}
   bool status();
 

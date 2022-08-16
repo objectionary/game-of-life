@@ -28,7 +28,8 @@ private:
   bool val;
 
 public:
-  Bool(bool b) : val(b) {}
+  Bool() : Bool(false) {}
+  Bool(bool b);
   bool get() const;
 };
 
@@ -37,7 +38,8 @@ private:
   int val;
 
 public:
-  Int(int i) : val(i) {}
+  Int() : Int(0){};
+  Int(int i);
   int get() const;
 };
 
@@ -47,7 +49,7 @@ private:
   Int right;
 
 public:
-  Less(Int l, Int r) : left(l), right(r) {}
+  Less(Int l, Int r);
   bool get();
 };
 
@@ -57,7 +59,7 @@ private:
   Int right;
 
 public:
-  Add(Int l, Int r) : left(l), right(r) {}
+  Add(Int l, Int r);
   int get();
 };
 
@@ -67,7 +69,7 @@ private:
   Int right;
 
 public:
-  Sub(Int l, Int r) : left(l), right(r) {}
+  Sub(Int l, Int r);
   int get();
 };
 
@@ -77,7 +79,7 @@ private:
   Bool right;
 
 public:
-  And(Bool l, Bool r) : left(l), right(r) {}
+  And(Bool l, Bool r);
   Bool get();
 };
 
@@ -87,7 +89,7 @@ private:
   Bool right;
 
 public:
-  Or(Bool l, Bool r) : left(l), right(r) {}
+  Or(Bool l, Bool r);
   Bool get();
 };
 
@@ -97,7 +99,7 @@ private:
   Int right;
 
 public:
-  Eq(Int l, Int r) : left(l), right(r) {}
+  Eq(Int l, Int r);
   Bool get();
 };
 
@@ -106,18 +108,8 @@ private:
   Bool val;
 
 public:
-  Not(Bool b) : val(b) {}
+  Not(Bool b);
   Bool get();
-};
-
-class Mult {
-private:
-  Int a;
-  Int b;
-
-public:
-  Mult(Int l, Int r) : a(l), b(r) {}
-  int get();
 };
 
 #endif

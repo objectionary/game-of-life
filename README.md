@@ -44,7 +44,7 @@ In addition to this you need to install ```EOC``` from [here](https://github.com
 
 ## Usage
 
-To buld project, just do:
+To build project, just do:
 
 ```
 $ make
