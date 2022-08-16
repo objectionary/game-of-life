@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+extern int counter;
+
 #include "../include/objects.h"
 
 bool Bool::get() const { return val; }

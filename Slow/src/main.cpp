@@ -31,29 +31,31 @@ void sleep(int x) {
   usleep(microsecond);
 }
 
-void rec(int depth, int max, bool flag, Field cur, Parse p) {
+void rec(Int depth, Int max, Bool flag, Field cur, Parse p) {
   cout << "\033[2J\033[1;1H";
-  if (depth > max) {
+  if (Less(max, depth).get()) {
     return;
   }
   cur.print();
 
   //
-  counter++;
+  counter += 2;  // NOLINT
   //
 
   Field next = cur.live();
-  if (flag) {
+  if (flag.get()) {
     cout << R"(If you want to play more press "n", else "q".)" << endl;
     string s;
     cin >> s;
     if (s != "n") {
       return;
     }
-    rec(depth, max, true, next, p);
+    counter += 1;  // NOLINT
+    rec(depth, max, Bool(true), next, p);
   } else {
+    counter += 2;  // NOLINT
     sleep(p.opts()["sleep"].as<int>());
-    rec(depth + 1, max, false, next, p);
+    rec(Add(depth, Int(1)).get(), max, Bool(false), next, p);
   }
 }
 
@@ -75,15 +77,14 @@ int main(int ac, char *av[]) {
   po::variables_map vm;
   po::store(po::parse_command_line(ac, av, desc), vm);
   po::notify(vm);
-
   Parse p = Parse(vm);
   p.build();
   Field clear = Field(Int(p.length()), Int(p.width()));
-  Field f = clear.rec_add(clear, p.grid(), 0);
+  Field f = clear.rec_add(clear, p.grid(), Int(0));
   if (vm.count("batch") > 0) {
-    rec(0, vm["batch"].as<int>(), false, f, p);
+    rec(Int(0), Int(vm["batch"].as<int>()), Bool(false), f, p);
   } else {
-    rec(0, 0, true, f, p);
+    rec(Int(0), Int(0), Bool(true), f, p);
   }
   cout << "The total number of created objects is: " << counter << endl;
 }

@@ -34,7 +34,7 @@ void checker(vector<pair<int,int>> check, const set<pair<int, int>>& res, int n,
     for (int j = 0; j < m; j++) {
       if (g[i][j].status()) {
         cnt++;
-        if (res.count({i + 1, j + 1}) == 0u) {
+        if (res.count({i + 1, j + 1}) == 0) {
           BOOST_FAIL(" in grid should be  {" << i + 1 << "," << j + 1
                                              << "}, but not in case "
                                              << test_case);
