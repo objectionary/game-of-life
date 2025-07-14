@@ -28,7 +28,7 @@ According to [previous research](https://github.com/yegor256/fibonacci), measure
 
 ## Install
 
-First, you need to install the __BOOST__ library, along with ```g++```, ```clang-format``` and ```clang-tidy``` if not already installed. Install everything as follows:
+First, you need to install the __BOOST__ library, along with `g++`, `clang-format` and `clang-tidy` if not already installed. Install everything as follows:
 
 ```
 sudo apt install g++
@@ -37,7 +37,7 @@ sudo apt-get install -y clang-tidy
 sudo apt install clang-format
 ```
 
-Additionally, install ```EOC``` from [here](https://github.com/objectionary/eoc).
+Additionally, install `EOC` from [here](https://github.com/objectionary/eoc).
 
 ## Usage
 
@@ -47,7 +47,7 @@ To build the project, run:
 $ make
 ```
 
-Choose between ```fast_life``` or ```slow_life``` to start the game. For ```fast_life```, run:
+Choose between `fast_life` or `slow_life` to start the game. For `fast_life`, run:
 
 ```
 $ ./fast_life --help
@@ -61,7 +61,7 @@ $ ./slow_life --help
 
 It will show you all the available options.
 
-Both implementations share the same options. Examples below use ```fast_life```.
+Both implementations share the same options. Examples below use `fast_life`.
 
 For example, you can enter something like this:
 
@@ -83,7 +83,7 @@ To format all .cpp files using clang-format:
 $ make fix
 ```
 
-To run tests for the ```fast``` or ```slow``` version:
+To run tests for the `fast` or `slow` version:
 
 ```
 $ make fast_test
@@ -107,19 +107,19 @@ To see an infinite loop pattern:
 ./fast_life --batch 40 --sleep 500 --size 10x10 --put 5x4 --put 5x5 --put 5x6
 ```
 
-To run the ```EO``` version:
+To run the `EO` version:
 
 ```
 $ eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
-You can use custom arguments. For the ```size``` option, use ```NxM``` where ```N``` is height and ```M``` is width. Use ```put AxB``` to place an alive cell at position ```AxB```:
+You can use custom arguments. For the `size` option, use `NxM` where `N` is height and `M` is width. Use `put AxB` to place an alive cell at position `AxB`:
 
 ```
 $ eoc --alone dataize life size NxM put AxB put CxD put ExF put ... and so on.
 ```
 
-To recompile after changing the ```EO``` file, omit the ```--alone``` option:
+To recompile after changing the `EO` file, omit the `--alone` option:
 
 ```
 $ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
@@ -129,13 +129,13 @@ $ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 
 ### Slow Version
 
-There are some notable features of __Cell__ and __Field__ objects that should be mentioned: all ```for``` statements are replaced with recursion, objectsare __immutable__, if we change something, we make a __copy__ of the object and make changes using the constructor, so to change the current object we create new one with changes.
+There are some notable features of __Cell__ and __Field__ objects that should be mentioned: all `for` statements are replaced with recursion, objectsare __immutable__, if we change something, we make a __copy__ of the object and make changes using the constructor, so to change the current object we create new one with changes.
 
 <br />
 
 __Field__ stores the playing field and creates the next generation.
 
-__Details:__ ```rec_line_print``` and ```rec_grid_print``` print the field. ```rec_line_print``` creates the initial field. ```rec_live``` creates the next generation. ```with``` changes the ```Cell``` at position ```(x,y)``` by returning a new ```Field``` object with the modified cell. ```count``` counts alive neighbors for the cell at ```(x,y)```. ```live``` calls ```rec_live``` with specific arguments.
+__Details:__ `rec_line_print` and `rec_grid_print` print the field. `rec_line_print` creates the initial field. `rec_live` creates the next generation. `with` changes the `Cell` at position `(x,y)` by returning a new `Field` object with the modified cell. `count` counts alive neighbors for the cell at `(x,y)`. `live` calls `rec_live` with specific arguments.
 
 ```
 class Field {
@@ -165,7 +165,7 @@ public:
 
 <br />
 
-__Cell__ stores the cell state (alive/dead). Method ```live``` takes an integer to determine the next generation state and returns a ```Cell``` object.
+__Cell__ stores the cell state (alive/dead). Method `live` takes an integer to determine the next generation state and returns a `Cell` object.
 
 
 
@@ -228,7 +228,7 @@ public:
 
 ![Structure](https://user-images.githubusercontent.com/90863441/177322155-579f7f99-be1c-4e54-a9a4-c05e79cf7f11.png)
 
-The main object is ```Game(Grid(Size(), Field()), *optional* Repeats())```.
+The main object is `Game(Grid(Size(), Field()), *optional* Repeats())`.
 
 <br />
 
@@ -296,7 +296,7 @@ public:
 
 <br />
 
-__Field__ stores a 2D array of ```Cell``` objects. It has methods to set initial alive cells and count alive neighbors.
+__Field__ stores a 2D array of `Cell` objects. It has methods to set initial alive cells and count alive neighbors.
 
 ```
 class Field {
@@ -322,9 +322,9 @@ public:
 
 __Cell__ stores the current state and next generation state. It provides methods to modify these states.
 
-__Details:__ ```changeNewState``` stores the next generation state without immediately applying it. This ensures neighbor cells can still read the current state when calculating their next state. Once all new states are determined, old values are updated.
+__Details:__ `changeNewState` stores the next generation state without immediately applying it. This ensures neighbor cells can still read the current state when calculating their next state. Once all new states are determined, old values are updated.
 
-```newState``` stores the cell's state for the next generation during calculation.
+`newState` stores the cell's state for the next generation during calculation.
 
 ```
 class Cell {
