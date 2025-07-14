@@ -1,4 +1,4 @@
-# John Conway's Game of Life 
+# John Conway's Game of Life
 
 <img src="https://play-lh.googleusercontent.com/4xtboOCl4G36He2_RUaYhI9v_eDIoXara2hAxDi99f1R5MwLjSI1QZ_CT6wLdjCTV3E" width="200" height="200" />
 
@@ -8,7 +8,7 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 ![workflow badge](https://github.com/potatmen/Life/actions/workflows/Life.yml/badge.svg)
 
-This project aims to show that [John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) written in C++ using OOP features (inheritance, encapsulation, polymorphism) works slower than the same realization using [EO programming language](https://github.com/objectionary/eo), the more general aim is to show that using EO language is more beneficial for projects that use many objects in terms of execution time.
+This project demonstrates that [John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) written in C++ using OOP features (inheritance, encapsulation, polymorphism) runs slower than the same implementation using [EO programming language](https://github.com/objectionary/eo). The broader goal is to show that EO language is more efficient for object-intensive projects in terms of execution time.
 
 ## Table of Contents
 
@@ -22,35 +22,32 @@ This project aims to show that [John Conway's Game of Life](https://en.wikipedia
 
 ## Background
 
-According to [previous research](https://github.com/yegor256/fibonacci) measurements showed that C++ realization to count Fibonacci numbers using objects work slowly, therefore, we decided to implement Game of Life. Fibonacci number counting is not sufficient enough because using objects for it's realization is something pulled out of a hat, because we can use a simple loop to count it.
+According to [previous research](https://github.com/yegor256/fibonacci), measurements showed that C++ implementation for counting Fibonacci numbers using objects works slowly. Therefore, we decided to implement Game of Life. Fibonacci number counting is insufficient because using objects for its implementation is artificial, as we can use a simple loop to calculate it.
 
-    
+
 
 ## Install
 
-At the beginning you need to install __BOOST__ library, and if you don't have ```g++```, ```clang-format``` and ```clang-tidy```. Like this, you can install everything:
+First, you need to install the __BOOST__ library, along with ```g++```, ```clang-format``` and ```clang-tidy``` if not already installed. Install everything as follows:
 
 ```
-  sudo apt install g++
-
-  sudo apt-get install libboost-all-dev
-
-  sudo apt-get install -y clang-tidy
-
-  sudo apt install clang-format
+sudo apt install g++
+sudo apt-get install libboost-all-dev
+sudo apt-get install -y clang-tidy
+sudo apt install clang-format
 ```
 
-In addition to this you need to install ```EOC``` from [here](https://github.com/objectionary/eoc).
+Additionally, install ```EOC``` from [here](https://github.com/objectionary/eoc).
 
 ## Usage
 
-To build project, just do:
+To build the project, run:
 
 ```
 $ make
 ```
 
-Then you can choose which version you prefer more, ```fast_life``` or ```slow_life``` to start the game, if you choose ```fast_life``` just run:
+Choose between ```fast_life``` or ```slow_life``` to start the game. For ```fast_life```, run:
 
 ```
 $ ./fast_life --help
@@ -64,7 +61,7 @@ $ ./slow_life --help
 
 It will show you all the available options.
 
-All options are the same to both realizations, so ```fast_life``` will be used.
+Both implementations share the same options. Examples below use ```fast_life```.
 
 For example, you can enter something like this:
 
@@ -72,21 +69,21 @@ For example, you can enter something like this:
 $ ./fast_life --batch 20 --size 40x40 --put 3x6 --put 6x8 --put 12x9
 ```
 
-This will run an automated game with 20 generations on the grid 40X40 with 3 initial alive cells.
+This runs an automated game with 20 generations on a 40x40 grid with 3 initially alive cells.
 
-If you want to clean the environment:
+To clean the environment:
 
 ```
 $ make clean
 ```
 
-If you want to format all .cpp files (clang-format will be called to do so):
+To format all .cpp files using clang-format:
 
 ```
 $ make fix
 ```
 
-If you want to run tests for ```fast``` or ```slow``` version:
+To run tests for the ```fast``` or ```slow``` version:
 
 ```
 $ make fast_test
@@ -98,31 +95,31 @@ OR
 $ make slow_test
 ```
 
-If you want to see a beautiful game called [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun) run this:
+To see the [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun) pattern, run:
 
 ```
 ./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26 --put 11x24 --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36 --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36 --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22 --put 14x23 --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18 --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26 --put 17x13 --put 17x17 --put 18x14 --put 18x15
 ```
 
-If you want to see the infinite loop run:
+To see an infinite loop pattern:
 
 ```
 ./fast_life --batch 40 --sleep 500 --size 10x10 --put 5x4 --put 5x5 --put 5x6
 ```
 
-If you want to see how ```EO``` version works:
+To run the ```EO``` version:
 
 ```
 $ eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
-Or you can type whatever arguments you want. For ```size``` option you need to type ```NxM``` where ```N``` is height and ```M``` is width of the grid. Then, you can pass some ```put AxB```, that means that you put alive cell in position ```AxB```. So the command will look like this:
+You can use custom arguments. For the ```size``` option, use ```NxM``` where ```N``` is height and ```M``` is width. Use ```put AxB``` to place an alive cell at position ```AxB```:
 
 ```
 $ eoc --alone dataize life size NxM put AxB put CxD put ExF put ... and so on.
 ```
 
-If you decide to changed ```EO``` file and want to recompile it with new input. You need just skip ```--alone``` option, so the command will look like this:
+To recompile after changing the ```EO``` file, omit the ```--alone``` option:
 
 ```
 $ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
@@ -130,15 +127,15 @@ $ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 
 ## Structure
 
-## Structure of Slow version
+### Slow Version
 
-There are some notable features of __Cell__ and __Field__ objects that should be mentioned: all ```for``` statements are replaced with recursion, objects are __immutable__, if we change something, we make a __copy__ of the object and make changes using the constructor, so to change the current object we create new one with changes.
+There are some notable features of __Cell__ and __Field__ objects that should be mentioned: all ```for``` statements are replaced with recursion, objectsare __immutable__, if we change something, we make a __copy__ of the object and make changes using the constructor, so to change the current object we create new one with changes.
 
 <br />
 
-__Object ```Field()```__ stores the playing field and performs creation of the next generation.
+__Field__ stores the playing field and creates the next generation.
 
-__Details.__ ```rec_line_print``` and ```rec_grid_print``` print the field. ```rec_line_print``` performs creation of the initial field. ```rec_live``` preforms creation of the next generation. ```with``` performs changing of the ```Cell``` in the position ```(x,y)``` by returning a new ```Field``` object with changed cell. ```count``` counts the number of alive cells for the cell with coordinates ```(x,y)```. ```live``` calls ```rec_live``` with special arguments.
+__Details:__ ```rec_line_print``` and ```rec_grid_print``` print the field. ```rec_line_print``` creates the initial field. ```rec_live``` creates the next generation. ```with``` changes the ```Cell``` at position ```(x,y)``` by returning a new ```Field``` object with the modified cell. ```count``` counts alive neighbors for the cell at ```(x,y)```. ```live``` calls ```rec_live``` with specific arguments.
 
 ```
 class Field {
@@ -168,26 +165,26 @@ public:
 
 <br />
 
-__Object ```Cell()```__ stores the state (alive/dead) of the cell. Method ```live``` takes an integer to decide whether it will be alive or dead in the next generation and returns ```Cell``` object as a result.
+__Cell__ stores the cell state (alive/dead). Method ```live``` takes an integer to determine the next generation state and returns a ```Cell``` object.
 
- 
+
 
 ```
 class Cell {
 
 private:
 
-  bool state;
+ bool state;
 
 public:
 
-  Cell(bool st) : state(st) {}
+ Cell(bool st) : state(st) {}
 
-  Cell() : Cell(false) {}  
+ Cell() : Cell(false) {}
 
-  bool status() const;  
+ bool status() const;
 
-  Cell live(int cnt) const;  
+ Cell live(int cnt) const;
 
 };
 ```
@@ -196,7 +193,7 @@ public:
 
 <br />
 
-__Object ```Parse()```__ performs parsing using __BOOST__ library and checks arguments entered in command line.
+__Parse__ parses command line arguments using the __BOOST__ library and validates input.
 
 ```
 class Parse {
@@ -227,24 +224,24 @@ public:
 };
 ```
 
-## Structure of Fast version
+### Fast Version
 
 ![Structure](https://user-images.githubusercontent.com/90863441/177322155-579f7f99-be1c-4e54-a9a4-c05e79cf7f11.png)
 
-The __Main__ object is ```Game( Grid( Size(), Field()) , *optional* Repeats())```. 
+The main object is ```Game(Grid(Size(), Field()), *optional* Repeats())```.
 
 <br />
 
-__Object ```Repeats()```__ asks for the number of iterations and stores this value.
+__Repeats__ stores the number of iterations.
 
 ```
 class Repeats {
 
 public:
 
-  int rep;
+ int rep;
 
-  Repeats();
+ Repeats();
 
 };
 ```
@@ -253,22 +250,22 @@ public:
 
 <br />
 
-__Object ```Grid()```__ stores the size of the grid and the playing field. In addition to this, it has methods to print the current state and move to the next iteration.
+__Grid__ stores the grid size and playing field. It provides methods to print the current state and advance to the next iteration.
 
 ```
 class Grid {
 
 public:
 
-  Size s;
+ Size s;
 
-  Field g;
+ Field g;
 
-  Grid(Size &st, Field &ff);
+ Grid(Size &st, Field &ff);
 
-  void printGrid();
+ void printGrid();
 
-  void nextGen();
+ void nextGen();
 
 };
 ```
@@ -277,20 +274,20 @@ public:
 
 <br />
 
-__Object ```Size()```__ asks for the size of the playing field and stores this value. Flag here is used to make it possible to ask for the size only once. 
+__Size__ stores the playing field dimensions.
 
 ```
 class Size {
 
 public:
 
-  int n;
+ int n;
 
-  int m;
+ int m;
 
-  Size(){};
+ Size(){};
 
-  Size(int x, int y);
+ Size(int x, int y);
 
 };
 ```
@@ -299,22 +296,22 @@ public:
 
 <br />
 
-__Object ```Field()```__ stores the the 2-D array of ```Cell()```. ```Field()``` has methods to ask for initial alive cells and method to count the number of alive neighbor-cells.
+__Field__ stores a 2D array of ```Cell``` objects. It has methods to set initial alive cells and count alive neighbors.
 
 ```
 class Field {
 
 public:
 
-  vector>> f;
+ vector<vector<Cell>> f;
 
-  Field(){};
+ Field(){};
 
-  Field(Size sz);
+ Field(Size sz);
 
-  void read_and_set(Size sz);
+ void read_and_set(Size sz);
 
-  int count(int x, int y, int sz);
+ int count(int x, int y, int sz);
 
 };
 ```
@@ -323,30 +320,30 @@ public:
 
 <br />
 
-__Object ```Cell()```__ stores the current state of the cell and state after moving to the new generation. Has methods to change and set values to its attributes.
+__Cell__ stores the current state and next generation state. It provides methods to modify these states.
 
-__Details:__ ChangeNewState method helps to remember the next generation state of this cell, but we can't change it at the moment, because if we change it, neighbor cells, which are haven't changed yet, will have no information about the current cell in the current generation, what is important for their state in the next generation. After we know all the new states of the cells, we can easily change old values to the new ones.
+__Details:__ ```changeNewState``` stores the next generation state without immediately applying it. This ensures neighbor cells can still read the current state when calculating their next state. Once all new states are determined, old values are updated.
 
-As mentioned before, newState is a variable that stores the state of the cell in the next generation during its creation. 
+```newState``` stores the cell's state for the next generation during calculation.
 
 ```
 class Cell {
 
 private:
 
-  bool curState = false;
+ bool curState = false;
 
-  bool newState = false;
+ bool newState = false;
 
 public:
 
-  void changeNewState(bool val);
+ void changeNewState(bool val);
 
-  void changeCurState();
+ void changeCurState();
 
-  void setState(bool val);
+ void setState(bool val);
 
-  bool getCurState() const;
+ bool getCurState() const;
 
 };
 
@@ -355,16 +352,16 @@ public:
 
 <br />
 
-__Object ```Game()```__ performs the game process with the interval of 2 seconds between generations.
+__Game__ runs the game with a configurable interval between generations.
 
 ```
 class Game {
 
 public:
 
-  Game(Grid gr, Repeats rep, int time);
+ Game(Grid gr, Repeats rep, int time);
 
-  Game(Grid gr);
+ Game(Grid gr);
 
 };
 ```
@@ -373,18 +370,18 @@ public:
 
 <br />
 
-__Object ```Parse()```__ performs console arguments parsing and checking.
+__Parse__ parses and validates console arguments.
 
 ```
 class Parse {
 
 public:
 
-  Parse(){};
+ Parse(){};
 
-  static pair get_size(string const &s);
+ static pair get_size(string const &s);
 
-  static vector> get_alive(vector const &a, int n, int m);
+ static vector> get_alive(vector const &a, int n, int m);
 
 };
 ```
@@ -393,4 +390,4 @@ public:
 
 <br />
 
-Some objects are not shown because they simply check the correctness of input data and convert strings to ints. 
+Additional helper objects for input validation and string-to-integer conversion are not shown.
