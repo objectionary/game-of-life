@@ -1,3 +1,6 @@
+.DS_Store
+.idea/
 .idea/
 .vscode/
 eo/.eoc
+node_modules/

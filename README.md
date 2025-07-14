@@ -208,12 +208,12 @@ private:
 
 public:
   Parse() : Parse(nullptr) {}
-  Parse(po::variables_map vmp) : vm(vmp) {} 
+  Parse(po::variables_map vmp) : vm(vmp) {}
 
   int length() const;
   int width() const;
   vector<pair<int, int>> grid();
-  po::variables_map opts(); 
+  po::variables_map opts();
 
   vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> p);
   static bool has(const string &s, char c);
@@ -223,7 +223,7 @@ public:
   static pair<int, int> split(const string &s);
   void positive();
   void cells();
-  void build();  
+  void build();
 };
 ```
 
