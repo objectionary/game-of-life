@@ -24,8 +24,6 @@ This project demonstrates that [John Conway's Game of Life](https://en.wikipedia
 
 According to [previous research](https://github.com/yegor256/fibonacci), measurements showed that C++ implementation for counting Fibonacci numbers using objects works slowly. Therefore, we decided to implement Game of Life. Fibonacci number counting is insufficient because using objects for its implementation is artificial, as we can use a simple loop to calculate it.
 
-
-
 ## Install
 
 First, you need to install the __BOOST__ library, along with `g++`, `clang-format` and `clang-tidy` if not already installed. Install everything as follows:
@@ -131,8 +129,6 @@ $ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 
 There are some notable features of __Cell__ and __Field__ objects that should be mentioned: all `for` statements are replaced with recursion, objectsare __immutable__, if we change something, we make a __copy__ of the object and make changes using the constructor, so to change the current object we create new one with changes.
 
-<br />
-
 __Field__ stores the playing field and creates the next generation.
 
 __Details:__ `rec_line_print` and `rec_grid_print` print the field. `rec_line_print` creates the initial field. `rec_live` creates the next generation. `with` changes the `Cell` at position `(x,y)` by returning a new `Field` object with the modified cell. `count` counts alive neighbors for the cell at `(x,y)`. `live` calls `rec_live` with specific arguments.
@@ -161,37 +157,19 @@ public:
 };
 ```
 
-<br />
-
-<br />
-
 __Cell__ stores the cell state (alive/dead). Method `live` takes an integer to determine the next generation state and returns a `Cell` object.
-
-
 
 ```
 class Cell {
-
 private:
-
- bool state;
-
+  bool state;
 public:
-
- Cell(bool st) : state(st) {}
-
- Cell() : Cell(false) {}
-
- bool status() const;
-
- Cell live(int cnt) const;
-
+  Cell(bool st) : state(st) {}
+  Cell() : Cell(false) {}
+  bool status() const;
+  Cell live(int cnt) const;
 };
 ```
-
-<br />
-
-<br />
 
 __Parse__ parses command line arguments using the __BOOST__ library and validates input.
 
@@ -230,8 +208,6 @@ public:
 
 The main object is `Game(Grid(Size(), Field()), *optional* Repeats())`.
 
-<br />
-
 __Repeats__ stores the number of iterations.
 
 ```
@@ -245,10 +221,6 @@ public:
 
 };
 ```
-
-<br />
-
-<br />
 
 __Grid__ stores the grid size and playing field. It provides methods to print the current state and advance to the next iteration.
 
@@ -270,10 +242,6 @@ public:
 };
 ```
 
-<br />
-
-<br />
-
 __Size__ stores the playing field dimensions.
 
 ```
@@ -291,10 +259,6 @@ public:
 
 };
 ```
-
-<br />
-
-<br />
 
 __Field__ stores a 2D array of `Cell` objects. It has methods to set initial alive cells and count alive neighbors.
 
@@ -315,10 +279,6 @@ public:
 
 };
 ```
-
-<br />
-
-<br />
 
 __Cell__ stores the current state and next generation state. It provides methods to modify these states.
 
@@ -348,9 +308,6 @@ public:
 };
 
 ```
-<br />
-
-<br />
 
 __Game__ runs the game with a configurable interval between generations.
 
@@ -366,28 +323,15 @@ public:
 };
 ```
 
-<br />
-
-<br />
-
 __Parse__ parses and validates console arguments.
 
 ```
 class Parse {
-
 public:
-
- Parse(){};
-
- static pair get_size(string const &s);
-
- static vector> get_alive(vector const &a, int n, int m);
-
+  Parse(){};
+  static pair get_size(string const &s);
+  static vector> get_alive(vector const &a, int n, int m);
 };
 ```
-
-<br />
-
-<br />
 
 Additional helper objects for input validation and string-to-integer conversion are not shown.
