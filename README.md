@@ -10,60 +10,45 @@
 
 This project demonstrates that [John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) written in C++ using OOP features (inheritance, encapsulation, polymorphism) runs slower than the same implementation using [EO programming language](https://github.com/objectionary/eo). The broader goal is to show that EO language is more efficient for object-intensive projects in terms of execution time.
 
-## Table of Contents
-
-- [Background](#background)
-
-- [Install](#install)
-
-- [Usage](#usage)
-
-- [Structure](#structure)
-
-## Background
-
 According to [previous research](https://github.com/yegor256/fibonacci), measurements showed that C++ implementation for counting Fibonacci numbers using objects works slowly. Therefore, we decided to implement Game of Life. Fibonacci number counting is insufficient because using objects for its implementation is artificial, as we can use a simple loop to calculate it.
 
-## Install
-
-First, you need to install the __BOOST__ library, along with `g++`, `clang-format` and `clang-tidy` if not already installed. Install everything as follows:
+First, you need to install the __BOOST__ library, along with `g++`,
+`clang-format` and `clang-tidy` if not already installed.
+Install everything as follows:
 
 ```
-sudo apt install g++
-sudo apt-get install libboost-all-dev
-sudo apt-get install -y clang-tidy
-sudo apt install clang-format
+sudo apt-get install --yes g++ libboost-all-dev clang-tidy clang-format
 ```
 
-Additionally, install `EOC` from [here](https://github.com/objectionary/eoc).
-
-## Usage
+Additionally, install [`eoc`](https://github.com/objectionary/eoc).
 
 To build the project, run:
 
-```
-$ make
+```bash
+make
 ```
 
-Choose between `fast_life` or `slow_life` to start the game. For `fast_life`, run:
+Choose between `fast_life` or `slow_life` to start the game.
+For `fast_life`, run:
 
-```
-$ ./fast_life --help
+```bash
+./fast_life --help
 ```
 
 Otherwise:
 
-```
-$ ./slow_life --help
+```bash
+./slow_life --help
 ```
 
 It will show you all the available options.
 
-Both implementations share the same options. Examples below use `fast_life`.
+Both implementations share the same options.
+Examples below use `fast_life`.
 
 For example, you can enter something like this:
 
-```
+```bash
 $ ./fast_life --batch 20 --size 40x40 --put 3x6 --put 6x8 --put 12x9
 ```
 
@@ -71,61 +56,59 @@ This runs an automated game with 20 generations on a 40x40 grid with 3 initially
 
 To clean the environment:
 
-```
-$ make clean
+```bash
+make clean
 ```
 
 To format all .cpp files using clang-format:
 
-```
-$ make fix
+```bash
+make fix
 ```
 
 To run tests for the `fast` or `slow` version:
 
-```
-$ make fast_test
+```bash
+make fast_test
 ```
 
-OR
+Or:
 
-```
-$ make slow_test
+```bash
+make slow_test
 ```
 
 To see the [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun) pattern, run:
 
-```
+```bash
 ./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26 --put 11x24 --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36 --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36 --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22 --put 14x23 --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18 --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26 --put 17x13 --put 17x17 --put 18x14 --put 18x15
 ```
 
 To see an infinite loop pattern:
 
-```
+```bash
 ./fast_life --batch 40 --sleep 500 --size 10x10 --put 5x4 --put 5x5 --put 5x6
 ```
 
 To run the `EO` version:
 
-```
-$ eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
+```bash
+eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
 You can use custom arguments. For the `size` option, use `NxM` where `N` is height and `M` is width. Use `put AxB` to place an alive cell at position `AxB`:
 
-```
-$ eoc --alone dataize life size NxM put AxB put CxD put ExF put ... and so on.
+```bash
+eoc --alone dataize life size NxM put AxB put CxD put ExF put ... and so on.
 ```
 
 To recompile after changing the `EO` file, omit the `--alone` option:
 
-```
-$ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
+```bash
+eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 ```
 
-## Structure
-
-### Slow Version
+## Slow Version
 
 There are some notable features of __Cell__ and __Field__ objects that should be mentioned: all `for` statements are replaced with recursion, objectsare __immutable__, if we change something, we make a __copy__ of the object and make changes using the constructor, so to change the current object we create new one with changes.
 
@@ -202,7 +185,7 @@ public:
 };
 ```
 
-### Fast Version
+## Fast Version
 
 ![Structure](https://user-images.githubusercontent.com/90863441/177322155-579f7f99-be1c-4e54-a9a4-c05e79cf7f11.png)
 
@@ -210,73 +193,50 @@ The main object is `Game(Grid(Size(), Field()), *optional* Repeats())`.
 
 __Repeats__ stores the number of iterations.
 
-```
+```cpp
 class Repeats {
-
 public:
-
- int rep;
-
- Repeats();
-
+  int rep;
+  Repeats();
 };
 ```
 
-__Grid__ stores the grid size and playing field. It provides methods to print the current state and advance to the next iteration.
+__Grid__ stores the grid size and playing field.
+It provides methods to print the current state and advance to the next iteration.
 
-```
+```cpp
 class Grid {
-
 public:
-
- Size s;
-
- Field g;
-
- Grid(Size &st, Field &ff);
-
- void printGrid();
-
- void nextGen();
-
+  Size s;
+  Field g;
+  Grid(Size &st, Field &ff);
+  void printGrid();
+  void nextGen();
 };
 ```
 
 __Size__ stores the playing field dimensions.
 
-```
+```cpp
 class Size {
-
 public:
-
- int n;
-
- int m;
-
- Size(){};
-
- Size(int x, int y);
-
+  int n;
+  int m;
+  Size(){};
+  Size(int x, int y);
 };
 ```
 
 __Field__ stores a 2D array of `Cell` objects. It has methods to set initial alive cells and count alive neighbors.
 
-```
+```cpp
 class Field {
-
 public:
-
- vector<vector<Cell>> f;
-
- Field(){};
-
- Field(Size sz);
-
- void read_and_set(Size sz);
-
- int count(int x, int y, int sz);
-
+  vector<vector<Cell>> f;
+  Field(){};
+  Field(Size sz);
+  void read_and_set(Size sz);
+  int count(int x, int y, int sz);
 };
 ```
 
@@ -286,46 +246,33 @@ __Details:__ `changeNewState` stores the next generation state without immediate
 
 `newState` stores the cell's state for the next generation during calculation.
 
-```
+```cpp
 class Cell {
-
 private:
-
- bool curState = false;
-
- bool newState = false;
-
+  bool curState = false;
+  bool newState = false;
 public:
-
- void changeNewState(bool val);
-
- void changeCurState();
-
- void setState(bool val);
-
- bool getCurState() const;
-
+  void changeNewState(bool val);
+  void changeCurState();
+  void setState(bool val);
+  bool getCurState() const;
 };
 
 ```
 
 __Game__ runs the game with a configurable interval between generations.
 
-```
+```cpp
 class Game {
-
 public:
-
- Game(Grid gr, Repeats rep, int time);
-
- Game(Grid gr);
-
+  Game(Grid gr, Repeats rep, int time);
+  Game(Grid gr);
 };
 ```
 
 __Parse__ parses and validates console arguments.
 
-```
+```cpp
 class Parse {
 public:
   Parse(){};
