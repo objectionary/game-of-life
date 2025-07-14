@@ -116,22 +116,18 @@ __Field__ stores the playing field and creates the next generation.
 
 __Details:__ `rec_line_print` and `rec_grid_print` print the field. `rec_line_print` creates the initial field. `rec_live` creates the next generation. `with` changes the `Cell` at position `(x,y)` by returning a new `Field` object with the modified cell. `count` counts alive neighbors for the cell at `(x,y)`. `live` calls `rec_live` with specific arguments.
 
-```
+```cpp
 class Field {
 private:
   vector<vector<Cell>> grid;
   void rec_line_print(int depth);
   void rec_grid_print(int x, int y);
-
 public:
   Field(int n, int m) : Field(make_grid(n, m)) {}
   Field(vector<vector<Cell>> g) : grid(g) {}
-
   vector<vector<Cell>> field();  // getters
-
   Field rec_add(Field cur, vector<pair<int, int>> s, int pos);
   Field rec_live(int x, int y, Field cur);
-
   static vector<vector<Cell>> make_grid(int n, int m);
   Field live();
   Field with(int x, int y, Cell a);
@@ -142,7 +138,7 @@ public:
 
 __Cell__ stores the cell state (alive/dead). Method `live` takes an integer to determine the next generation state and returns a `Cell` object.
 
-```
+```cpp
 class Cell {
 private:
   bool state;
@@ -156,23 +152,20 @@ public:
 
 __Parse__ parses command line arguments using the __BOOST__ library and validates input.
 
-```
+```cpp
 class Parse {
 private:
   int n = 100000;
   int m = 100000;
   vector<pair<int, int>> points;
   po::variables_map vm;
-
 public:
   Parse() : Parse(nullptr) {}
   Parse(po::variables_map vmp) : vm(vmp) {}
-
   int length() const;
   int width() const;
   vector<pair<int, int>> grid();
   po::variables_map opts();
-
   vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> p);
   static bool has(const string &s, char c);
   static bool valid(string const &s);
