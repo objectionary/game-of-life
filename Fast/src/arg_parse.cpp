@@ -5,7 +5,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <string>
 #include <utility>
 #include <vector>
 
@@ -22,12 +21,8 @@ pair<int, int> Parse::get_size(string const &str) {
   if (str.empty()) {
     return {SIZE, SIZE};
   }
-
-  const Valid valid = Valid();
-
   if (Valid::is_valid(str)) {
-    Process process = Process();
-    return process.convert(process.split(str));
+    return Process::convert(Process::split(str));
   }
   cout << "Incorrect arguments in size option" << "\n";
   exit(0);  // NOLINT(concurrency-mt-unsafe)
@@ -39,8 +34,7 @@ vector<pair<int, int>> Parse::get_alive(
   for (auto const &str : field) {
     const Valid valid = Valid();
     if (Valid::is_valid(str)) {
-      Process process = Process();
-      const pair<int, int> processes = process.convert(process.split(str));
+      const pair<int, int> processes = Process::convert(Process::split(str));
       if (processes.first <= 0 || processes.first > byN ||
           processes.second <= 0 || processes.second > byM) {
         cout << "You entered cells out of range of the grid " << str << "\n";
