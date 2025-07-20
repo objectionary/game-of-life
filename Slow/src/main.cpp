@@ -21,9 +21,9 @@ using std::cout;
 
 const int MUL = 1000;
 
-namespace {
+int counter = 0;  // NOLINT(misc-use-internal-linkage)
 
-int counter = 0;
+namespace {
 
 void sleep(int value) {
   const unsigned int microsecond = MUL * value;
