@@ -3,42 +3,53 @@
 
 #include "../include/arg_parse.h"
 
+#include <cstdlib>
+#include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "../include/args_process.h"
 #include "../include/args_valid.h"
-const int size = 20;
-pair<int, int> Parse::get_size(string const &s) {
-  if (s.length() == 0) {
-    return {size, size};
+
+using std::cout;
+using std::exit;
+using std::pair;
+
+const int SIZE = 20;
+
+pair<int, int> Parse::get_size(string const &str) {
+  if (str.empty()) {
+    return {SIZE, SIZE};
   }
 
-  Valid v = Valid();
+  const Valid valid = Valid();
 
-  if (Valid::is_valid(s)) {
-    Process p = Process();
-    return p.convert(p.split(s));
+  if (Valid::is_valid(str)) {
+    Process process = Process();
+    return process.convert(process.split(str));
   }
-  cout << "Incorrect arguments in size option" << endl;
-  exit(0);
+  cout << "Incorrect arguments in size option" << "\n";
+  exit(0);  // NOLINT(concurrency-mt-unsafe)
 }
 
-vector<pair<int, int>> Parse::get_alive(vector<string> const &a, int n, int m) {
+vector<pair<int, int>> Parse::get_alive(
+  vector<string> const &field, int byN, int byM) {
   vector<pair<int, int>> res;
-  for (auto const &i : a) {
-    Valid v = Valid();
-    if (Valid::is_valid(i)) {
-      Process p = Process();
-      pair<int, int> x = p.convert(p.split(i));
-      if (x.first <= 0 || x.first > n || x.second <= 0 || x.second > m) {
-        cout << "You entered cells out of range of the grid " << i << endl;
-        exit(0);
+  for (auto const &str : field) {
+    const Valid valid = Valid();
+    if (Valid::is_valid(str)) {
+      Process process = Process();
+      const pair<int, int> processes = process.convert(process.split(str));
+      if (processes.first <= 0 || processes.first > byN ||
+          processes.second <= 0 || processes.second > byM) {
+        cout << "You entered cells out of range of the grid " << str << "\n";
+        exit(0);  // NOLINT(concurrency-mt-unsafe)
       }
-      res.emplace_back(x);
+      res.emplace_back(processes);
     } else {
-      cout << "You entered incorrect arguments in put option" << endl;
-      exit(0);
+      cout << "You entered incorrect arguments in put option" << "\n";
+      exit(0);  // NOLINT(concurrency-mt-unsafe)
     }
   }
   return res;
