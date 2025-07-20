@@ -4,15 +4,13 @@
 #ifndef _OOP_OBJECTS_H_
 #define _OOP_OBJECTS_H_
 
-#include <bits/stdc++.h>
-using namespace std;
 class Bool {
 private:
   bool val;
 
 public:
   Bool() : Bool(false) {}
-  Bool(bool b);
+  Bool(bool val);
   bool get() const;
 };
 
@@ -21,8 +19,8 @@ private:
   int val;
 
 public:
-  Int() : Int(0){};
-  Int(int i);
+  Int() : Int(0) {};
+  Int(int val);
   int get() const;
 };
 
@@ -32,7 +30,7 @@ private:
   Int right;
 
 public:
-  Less(Int l, Int r);
+  Less(Int lhs, Int rhs);
   bool get();
 };
 
@@ -42,7 +40,7 @@ private:
   Int right;
 
 public:
-  Add(Int l, Int r);
+  Add(Int lhs, Int rhs);
   int get();
 };
 
@@ -52,7 +50,7 @@ private:
   Int right;
 
 public:
-  Sub(Int l, Int r);
+  Sub(Int lhs, Int rhs);
   int get();
 };
 
@@ -62,7 +60,7 @@ private:
   Bool right;
 
 public:
-  And(Bool l, Bool r);
+  And(Bool lhs, Bool rhs);
   Bool get();
 };
 
@@ -72,7 +70,7 @@ private:
   Bool right;
 
 public:
-  Or(Bool l, Bool r);
+  Or(Bool lhs, Bool rhs);
   Bool get();
 };
 
@@ -82,7 +80,7 @@ private:
   Int right;
 
 public:
-  Eq(Int l, Int r);
+  Eq(Int lhs, Int rhs);
   Bool get();
 };
 
@@ -91,7 +89,7 @@ private:
   Bool val;
 
 public:
-  Not(Bool b);
+  Not(Bool val);
   Bool get();
 };
 
