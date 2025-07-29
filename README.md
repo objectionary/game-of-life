@@ -1,6 +1,6 @@
 # John Conway's Game of Life
 
-[![](https://play-lh.googleusercontent.com/4xtboOCl4G36He2_RUaYhI9v_eDIoXara2hAxDi99f1R5MwLjSI1QZ_CT6wLdjCTV3E)](https://play-lh.googleusercontent.com/4xtboOCl4G36He2_RUaYhI9v_eDIoXara2hAxDi99f1R5MwLjSI1QZ_CT6wLdjCTV3E)
+[![logo](https://play-lh.googleusercontent.com/4xtboOCl4G36He2_RUaYhI9v_eDIoXara2hAxDi99f1R5MwLjSI1QZ_CT6wLdjCTV3E)](https://play-lh.googleusercontent.com/4xtboOCl4G36He2_RUaYhI9v_eDIoXara2hAxDi99f1R5MwLjSI1QZ_CT6wLdjCTV3E)
 
 ![badge](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
@@ -8,15 +8,19 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 ![workflow badge](https://github.com/potatmen/Life/actions/workflows/Life.yml/badge.svg)
 
-This project demonstrates that [John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
-written in C++ using OOP features (inheritance, encapsulation, polymorphism) runs slower than the same implementation
-using [EO programming language](https://github.com/objectionary/eo). The broader goal is to show that EO language 
+This project demonstrates that
+[John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+written in C++ using OOP features (inheritance, encapsulation, polymorphism)
+runs slower than the same implementation
+using [EO programming language](https://github.com/objectionary/eo).
+The broader goal is to show that EO language
 is more efficient for object-intensive projects in terms of execution time.
 
-According to [previous research](https://github.com/yegor256/fibonacci), measurements showed that C++ implementation
-for counting Fibonacci numbers using objects works slowly. Therefore, we decided to implement Game of Life. 
-Fibonacci number counting is insufficient because using objects for its implementation is artificial, as we can use 
-a simple loop to calculate it.
+According to [previous research](https://github.com/yegor256/fibonacci),
+measurements showed that C++ implementation for counting Fibonacci numbers
+using objects works slowly. Therefore, we decided to implement Game of Life. 
+Fibonacci number counting is insufficient because using objects for its
+implementation is artificial, as we can use a simple loop to calculate it.
 
 First, you need to install the __BOOST__ library, along with `g++`,
 `clang-format` and `clang-tidy` if not already installed.
@@ -104,8 +108,9 @@ To run the `EO` version:
 eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
-You can use custom arguments. For the `size` option, use `NxM` where `N` is height
-and `M` is width. Use `put AxB` to place an alive cell at position `AxB`:
+You can use custom arguments. For the `size` option, use `NxM` where 
+`N` is height and `M` is width. Use `put AxB` to place an alive cell
+at position `AxB`:
 
 ```bash
 eoc --alone dataize life size NxM put AxB put CxD put ExF put ... and so on.
@@ -119,17 +124,20 @@ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 
 ## Slow Version
 
-There are some notable features of __Cell__ and __Field__ objects that should be
-mentioned: all `for` statements are replaced with recursion, objectsare __immutable__,
-if we change something, we make a __copy__ of the object and make changes using 
-the constructor, so to change the current object we create new one with changes.
+There are some notable features of __Cell__ and __Field__ objects that
+should be mentioned: all `for` statements are replaced with recursion,
+objectsare __immutable__, if we change something, we make a __copy__
+of the object and make changes using the constructor, so to change
+the current object we create new one with changes.
 
 __Field__ stores the playing field and creates the next generation.
 
-__Details:__ `rec_line_print` and `rec_grid_print` print the field. `rec_line_print`
-creates the initial field. `rec_live` creates the next generation. `with` changes
-the `Cell` at position `(x,y)` by returning a new `Field` object with the modified cell.
-`count` counts alive neighbors for the cell at `(x,y)`. `live` calls `rec_live` with specific arguments.
+__Details:__ `rec_line_print` and `rec_grid_print` print the field.
+`rec_line_print` creates the initial field. `rec_live` creates the next generation.
+`with` changesthe `Cell` at position `(x,y)` by returning a new `Field`
+object with the modified cell.
+`count` counts alive neighbors for the cell at `(x,y)`. `live` calls
+`rec_live` with specific arguments.
 
 ```cpp
 class Field {
@@ -166,7 +174,8 @@ public:
 };
 ```
 
-__Parse__ parses command line arguments using the __BOOST__ library and validates input.
+__Parse__ parses command line arguments using the __BOOST__ library
+and validates input.
 
 ```cpp
 class Parse {
@@ -211,7 +220,8 @@ public:
 ```
 
 __Grid__ stores the grid size and playing field.
-It provides methods to print the current state and advance to the next iteration.
+It provides methods to print the current state and advance to the
+next iteration.
 
 ```cpp
 class Grid {
@@ -258,7 +268,8 @@ immediately applying it. This ensures neighbor cells can still read
 the current state when calculating their next state. Once all new states
 are determined, old values are updated.
 
-`newState` stores the cell's state for the next generation during calculation.
+`newState` stores the cell's state for the next generation during
+calculation.
 
 ```cpp
 class Cell {
