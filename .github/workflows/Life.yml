@@ -1,4 +1,5 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+# SPDX-License-Identifier: MIT
 ---
 name: Life
 on:  # yamllint disable-line rule:truthy
