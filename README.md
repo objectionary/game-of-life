@@ -18,7 +18,7 @@ is more efficient for object-intensive projects in terms of execution time.
 
 According to [previous research](https://github.com/yegor256/fibonacci),
 measurements showed that C++ implementation for counting Fibonacci numbers
-using objects works slowly. Therefore, we decided to implement Game of Life. 
+using objects works slowly. Therefore, we decided to implement Game of Life.
 Fibonacci number counting is insufficient because using objects for its
 implementation is artificial, as we can use a simple loop to calculate it.
 
@@ -59,7 +59,7 @@ Examples below use `fast_life`.
 For example, you can enter something like this:
 
 ```bash
-$ ./fast_life --batch 20 --size 40x40 --put 3x6 --put 6x8 --put 12x9
+./fast_life --batch 20 --size 40x40 --put 3x6 --put 6x8 --put 12x9
 ```
 
 This runs an automated game with 20 generations on a 40x40 grid with
@@ -93,7 +93,13 @@ To see the [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun)
 pattern, run:
 
 ```bash
-./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26 --put 11x24 --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36 --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36 --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22 --put 14x23 --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18 --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26 --put 17x13 --put 17x17 --put 18x14 --put 18x15
+./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26
+ --put 11x24 --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36
+ --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36
+ --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22
+ --put 14x23 --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18
+ --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26
+ --put 17x13 --put 17x17 --put 18x14 --put 18x15
 ```
 
 To see an infinite loop pattern:
@@ -108,7 +114,7 @@ To run the `EO` version:
 eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
-You can use custom arguments. For the `size` option, use `NxM` where 
+You can use custom arguments. For the `size` option, use `NxM` where
 `N` is height and `M` is width. Use `put AxB` to place an alive cell
 at position `AxB`:
 
@@ -260,7 +266,7 @@ public:
 };
 ```
 
-__Cell__ stores the current state and next generation state. 
+__Cell__ stores the current state and next generation state.
 It provides methods to modify these states.
 
 __Details:__ `changeNewState` stores the next generation state without
