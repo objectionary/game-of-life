@@ -5,14 +5,14 @@
 name: Life
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
-    - run: sudo apt-get install libboost-all-dev
-    - run: npm install -g eolang
-    - run: make
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install libboost-all-dev
+      - run: npm install -g eolang
+      - run: make
