@@ -1,9 +1,9 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 Anton Shatokhin
 # SPDX-License-Identifier: MIT
 ---
 # yamllint disable rule:line-length
 name: typos
-'on':
+"on":
   push:
     branches:
       - master

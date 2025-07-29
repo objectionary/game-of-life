@@ -3,7 +3,7 @@
 +alias org.eolang.txt.sscanf
 +alias org.eolang.math.number
 +alias org.eolang.collections.list
-+spdx SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
++spdx SPDX-FileCopyrightText: Copyright (c) 2022-2025 Anton Shatokhin
 +spdx SPDX-License-Identifier: MIT
 
 [x y] > pair!

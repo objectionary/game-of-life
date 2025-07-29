@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+// SPDX-FileCopyrightText: Copyright (c) 2022-2025 Anton Shatokhin
 // SPDX-License-Identifier: MIT
 
 #include "../include/field.h"
