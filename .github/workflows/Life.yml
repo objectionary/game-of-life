@@ -1,9 +1,8 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin # yamllint disable-line rule:new-lines
 # SPDX-License-Identifier: MIT
 ---
-# yamllint disable rule:line-length
 name: Life
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches: [master]
   pull_request:
