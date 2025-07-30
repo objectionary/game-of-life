@@ -22,7 +22,7 @@ int main(int ac, char *av[]) {  // NOLINT
   desc.add_options()("help", "produce help message")("batch", po::value<int>(),
     "if set, program runs automatically and you should state the number of "
     "cycles")("sleep", po::value<int>(&opt)->default_value(def_val),
-    "the number of miliseconds to wait before new generation "
+    "the number of milliseconds to wait before new generation "
     "generated, default value is 1000")("size", po::value<string>(),
     "the size of the grid, you can state this value by passing NxM where N "
     "the number of rows, M the number of columns, for example --size 20x30")(
