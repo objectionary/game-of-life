@@ -15,16 +15,15 @@ runs slower than the same implementation
 using [EO programming language](https://github.com/objectionary/eo).
 The broader goal is to show that EO language
 is more efficient for object-intensive projects in terms of execution time.
-
 According to [previous research](https://github.com/yegor256/fibonacci),
 measurements showed that C++ implementation for counting Fibonacci numbers
 using objects works slowly. Therefore, we decided to implement Game of Life.
 Fibonacci number counting is insufficient because using objects for its
 implementation is artificial, as we can use a simple loop to calculate it.
 
-First, you need to install the __BOOST__ library, along with `g++`,
+First, you need to install the **BOOST** library, along with `g++`,
 `clang-format` and `clang-tidy` if not already installed.
-Install everything as follows:
+On Ubuntu, install everything as follows:
 
 ```bash
 sudo apt-get install --yes g++ libboost-all-dev clang-tidy clang-format
@@ -93,13 +92,13 @@ To see the [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun)
 pattern, run:
 
 ```bash
-./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26
- --put 11x24 --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36
- --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36
- --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22
- --put 14x23 --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18
- --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26
- --put 17x13 --put 17x17 --put 18x14 --put 18x15
+./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26 \
+  --put 11x24 --put 12x14 --put 12x15 --put 12x23 --put 12x22 --put 12x36 \
+  --put 12x37 --put 13x13 --put 13x17 --put 13x22 --put 13x23 --put 13x36 \
+  --put 13x37 --put 14x2 --put 14x3 --put 14x12 --put 14x18 --put 14x22 \
+  --put 14x23 --put 15x2 --put 15x3 --put 15x12 --put 15x16 --put 15x18 \
+  --put 15x19 --put 15x24 --put 15x26 --put 16x12 --put 16x18 --put 16x26 \
+  --put 17x13 --put 17x17 --put 18x14 --put 18x15
 ```
 
 To see an infinite loop pattern:
@@ -130,15 +129,15 @@ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 
 ## Slow Version
 
-There are some notable features of __Cell__ and __Field__ objects that
+There are some notable features of **Cell** and **Field** objects that
 should be mentioned: all `for` statements are replaced with recursion,
-objectsare __immutable__, if we change something, we make a __copy__
+objectsare **immutable**, if we change something, we make a **copy**
 of the object and make changes using the constructor, so to change
 the current object we create new one with changes.
 
-__Field__ stores the playing field and creates the next generation.
+**Field** stores the playing field and creates the next generation.
 
-__Details:__ `rec_line_print` and `rec_grid_print` print the field.
+**Details:** `rec_line_print` and `rec_grid_print` print the field.
 `rec_line_print` creates the initial field. `rec_live` creates the next generation.
 `with` changesthe `Cell` at position `(x,y)` by returning a new `Field`
 object with the modified cell.
@@ -165,7 +164,7 @@ public:
 };
 ```
 
-__Cell__ stores the cell state (alive/dead). Method `live` takes an integer
+**Cell** stores the cell state (alive/dead). Method `live` takes an integer
 to determine the next generation state and returns a `Cell` object.
 
 ```cpp
@@ -180,7 +179,7 @@ public:
 };
 ```
 
-__Parse__ parses command line arguments using the __BOOST__ library
+**Parse** parses command line arguments using the **BOOST** library
 and validates input.
 
 ```cpp
@@ -215,7 +214,7 @@ public:
 
 The main object is `Game(Grid(Size(), Field()), *optional* Repeats())`.
 
-__Repeats__ stores the number of iterations.
+**Repeats** stores the number of iterations.
 
 ```cpp
 class Repeats {
@@ -225,7 +224,7 @@ public:
 };
 ```
 
-__Grid__ stores the grid size and playing field.
+**Grid** stores the grid size and playing field.
 It provides methods to print the current state and advance to the
 next iteration.
 
@@ -240,7 +239,7 @@ public:
 };
 ```
 
-__Size__ stores the playing field dimensions.
+**Size** stores the playing field dimensions.
 
 ```cpp
 class Size {
@@ -252,7 +251,7 @@ public:
 };
 ```
 
-__Field__ stores a 2D array of `Cell` objects. It has methods to set initial
+**Field** stores a 2D array of `Cell` objects. It has methods to set initial
 alive cells and count alive neighbors.
 
 ```cpp
@@ -266,10 +265,10 @@ public:
 };
 ```
 
-__Cell__ stores the current state and next generation state.
+**Cell** stores the current state and next generation state.
 It provides methods to modify these states.
 
-__Details:__ `changeNewState` stores the next generation state without
+**Details:** `changeNewState` stores the next generation state without
 immediately applying it. This ensures neighbor cells can still read
 the current state when calculating their next state. Once all new states
 are determined, old values are updated.
@@ -291,7 +290,7 @@ public:
 
 ```
 
-__Game__ runs the game with a configurable interval between generations.
+**Game** runs the game with a configurable interval between generations.
 
 ```cpp
 class Game {
@@ -301,7 +300,7 @@ public:
 };
 ```
 
-__Parse__ parses and validates console arguments.
+**Parse** parses and validates console arguments.
 
 ```cpp
 class Parse {
