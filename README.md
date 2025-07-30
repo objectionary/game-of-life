@@ -9,19 +9,19 @@
 ![workflow badge](https://github.com/potatmen/Life/actions/workflows/Life.yml/badge.svg)
 
 This project demonstrates that
-[John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+[John Conway's Game of Life][wiki]
 written in C++ using OOP features (inheritance, encapsulation, polymorphism)
 runs slower than the same implementation
-using [EO programming language](https://github.com/objectionary/eo).
-The broader goal is to show that EO language
+using the [EO] programming language.
+The broader goal is to show that the EO language
 is more efficient for object-intensive projects in terms of execution time.
 According to [previous research](https://github.com/yegor256/fibonacci),
-measurements showed that C++ implementation for counting Fibonacci numbers
-using objects works slowly. Therefore, we decided to implement Game of Life.
+measurements showed that the C++ implementation for counting Fibonacci numbers
+using objects works slowly. Therefore, we decided to implement the Game of Life.
 Fibonacci number counting is insufficient because using objects for its
 implementation is artificial, as we can use a simple loop to calculate it.
 
-First, you need to install the **BOOST** library, along with `g++`,
+First, you need to install the [Boost] library, along with `g++`,
 `clang-format` and `clang-tidy` if not already installed.
 On Ubuntu, install everything as follows:
 
@@ -29,7 +29,7 @@ On Ubuntu, install everything as follows:
 sudo apt-get install --yes g++ libboost-all-dev clang-tidy clang-format
 ```
 
-Additionally, install [`eoc`](https://github.com/objectionary/eoc).
+Additionally, install [eoc].
 
 To build the project, run:
 
@@ -62,7 +62,7 @@ For example, you can enter something like this:
 ```
 
 This runs an automated game with 20 generations on a 40x40 grid with
-3 initially alive cells.
+three initially alive cells.
 
 To clean the environment:
 
@@ -70,7 +70,7 @@ To clean the environment:
 make clean
 ```
 
-To format all .cpp files using clang-format:
+To format all `.cpp` files using `clang-format`:
 
 ```bash
 make fix
@@ -88,8 +88,7 @@ Or:
 make slow_test
 ```
 
-To see the [Gosper glider gun](https://conwaylife.com/wiki/Gosper_glider_gun)
-pattern, run:
+To see the [Gosper glider gun] pattern, run:
 
 ```bash
 ./fast_life --batch 1000 --sleep 170 --size 40x40 --put 10x26 --put 11x26 \
@@ -131,15 +130,15 @@ eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
 
 There are some notable features of **Cell** and **Field** objects that
 should be mentioned: all `for` statements are replaced with recursion,
-objectsare **immutable**, if we change something, we make a **copy**
+objects are **immutable**, if we change something, we make a **copy**
 of the object and make changes using the constructor, so to change
-the current object we create new one with changes.
+the current object we create a new one with changes.
 
 **Field** stores the playing field and creates the next generation.
 
 **Details:** `rec_line_print` and `rec_grid_print` print the field.
 `rec_line_print` creates the initial field. `rec_live` creates the next generation.
-`with` changesthe `Cell` at position `(x,y)` by returning a new `Field`
+`with` changes the `Cell` at position `(x,y)` by returning a new `Field`
 object with the modified cell.
 `count` counts alive neighbors for the cell at `(x,y)`. `live` calls
 `rec_live` with specific arguments.
@@ -313,3 +312,9 @@ public:
 
 Additional helper objects for input validation and string-to-integer
 conversion are not shown.
+
+[Boost]: https://www.boost.org/
+[wiki]: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+[EO]: https://github.com/objectionary/eo
+[eoc]: https://github.com/objectionary/eoc
+[Gosper glider gun]: https://conwaylife.com/wiki/Gosper_glider_gun
