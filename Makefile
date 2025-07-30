@@ -9,7 +9,11 @@ FAST_TEST_SOURCES := $(filter-out Fast/src/main.cpp, $(shell find Fast/  -type f
 
 FAST_TEST_OBJECTS := ${FAST_TEST_SOURCES:.cpp=.o}
 
+.PHONY: all style slow fast eo-compile compile cpp java eo run clean test
+
 all: style slow fast eo-compile
+
+compile: cpp java eo
 
 slow: slow_life slow_test
 
