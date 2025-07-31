@@ -5,7 +5,11 @@
 name: copyrights
 'on':
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
 jobs:
   copyrights:
     timeout-minutes: 15
@@ -13,5 +17,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: yegor256/copyrights-action@0.0.12
-        with:
-          license: "LICENSES/MIT.txt"
