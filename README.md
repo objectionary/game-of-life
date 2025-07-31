@@ -1,6 +1,6 @@
 # John Conway's Game of Life
 
-[<img height="128" src="assets/logo.png" width="128"/>](assets/logo.png)
+![[logo]((assets/logo+.png))](assets/logo+.png)
 
 ![badge](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
