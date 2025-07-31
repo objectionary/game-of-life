@@ -11,7 +11,7 @@ class Grid {
 public:
   Size s;
   Field g;
-  Grid(Size &st, Field &ff);
+  Grid(Size &size, Field &field);
   void printGrid();
   void nextGen();
 };

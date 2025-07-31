@@ -3,57 +3,66 @@
 
 #include "../include/field.h"
 
+#include <iostream>
 #include <utility>
+#include <vector>
 
-const int add = 5;
+#include "../include/cell.h"
+#include "../include/objects.h"
 
+using std::cout;
+using std::vector;
+
+const int ADD = 5;
 extern int counter;
 
 vector<vector<Cell>> Field::field() { return grid; }
 
-Field::Field(vector<vector<Cell>> g) {
-  grid = std::move(g);
-  counter++;
-}
+Field::Field(vector<vector<Cell>> grid) : grid(std::move(grid)) { counter++; }
 
 vector<vector<Cell>> Field::rec_create_vector(
-  Int n, Int m, Int cur_n, Int cur_m, vector<vector<Cell>> res) {
-  if (Eq(m, cur_m).get().get()) {
-    return rec_create_vector(n, m, Int(Add(cur_n, Int(1)).get()), Int(0), res);
+  Int lhs, Int rhs, Int currLhs, Int currRhs, vector<vector<Cell>> res) {
+  if (Eq(rhs, currRhs).get().get()) {
+    return rec_create_vector(
+      lhs, rhs, Int(Add(currLhs, Int(1)).get()), Int(0), res);
   }
-  if (Eq(n, cur_n).get().get()) {
+  if (Eq(lhs, currLhs).get().get()) {
     return res;
   }
-  if (Eq(Int(res.size()), Int(Add(cur_n, Int(1)).get())).get().get()) {
-    res[cur_n.get()].emplace_back(Cell(Bool(false)));
+  if (Eq(Int(static_cast<int>(res.size())), Int(Add(currLhs, Int(1)).get()))
+        .get()
+        .get()) {
+    res[currLhs.get()].emplace_back(Bool(false));
     auto new_res = res;
     return rec_create_vector(
-      n, m, cur_n, Int(Add(cur_m, Int(1)).get()), new_res);
+      lhs, rhs, currLhs, Int(Add(currRhs, Int(1)).get()), new_res);
   }
-  vector<Cell> a;
-  a.emplace_back(Cell(Bool(false)));
-  res.emplace_back(a);
+  vector<Cell> cells;
+  cells.emplace_back(Bool(false));
+  res.emplace_back(cells);
   auto new_res = res;
-  return rec_create_vector(n, m, cur_n, Int(Add(cur_m, Int(1)).get()), new_res);
+  return rec_create_vector(
+    lhs, rhs, currLhs, Int(Add(currRhs, Int(1)).get()), new_res);
 }
 
-vector<vector<Cell>> Field::make_grid(Int n, Int m) {
-  vector<vector<Cell>> arr;
-  return rec_create_vector(Int(n), Int(m), Int(0), Int(0), arr);
+vector<vector<Cell>> Field::make_grid(Int lhs, Int rhs) {
+  const vector<vector<Cell>> arr;
+  return rec_create_vector(Int(lhs), Int(rhs), Int(0), Int(0), arr);
 }
 
-Field Field::rec_add(Field cur, vector<pair<int, int>> s, Int pos) {
-  if (Eq(pos, Int(s.size())).get().get()) {
+Field Field::rec_add(Field cur, vector<pair<int, int>> rec, Int pos) {
+  if (Eq(pos, Int(static_cast<int>(rec.size()))).get().get()) {
     return cur;
   }
-  pair<int, int> x = s[pos.get()];
-  return rec_add(cur.with(x.first - 1, x.second - 1, Cell(Bool(true))), s,
+  const pair<int, int> record = rec[pos.get()];
+  return rec_add(
+    cur.with(record.first - 1, record.second - 1, Cell(Bool(true))), rec,
     Int(Add(pos, Int(1)).get()));
 }
 
 void Field::rec_line_print(Int depth) {
-  Int m = Int(grid[0].size());
-  if (depth.get() == m.get() * 2 + add) {
+  const Int value = Int(static_cast<int>(grid[0].size()));
+  if (depth.get() == value.get() * 2 + ADD) {
     cout << "\n";
     return;
   }
@@ -61,41 +70,45 @@ void Field::rec_line_print(Int depth) {
   rec_line_print(Int(Add(depth, Int(1)).get()));
 }
 
-void Field::rec_grid_print(Int x, Int y) {
-  Int n = grid.size();
-  if (Or(Bool(Less(Int(n), x).get()), Eq(Int(n), x).get()).get().get()) {
+void Field::rec_grid_print(Int lhs, Int rhs) {
+  const Int value = static_cast<int>(grid.size());
+  if (Or(Bool(Less(Int(value), lhs).get()), Eq(Int(value), lhs).get())
+        .get()
+        .get()) {
     return;
   }
 
-  if (Or(Less(Int(n), y).get(), Eq(Int(n), y).get()).get().get()) {
+  if (Or(Less(Int(value), rhs).get(), Eq(Int(value), rhs).get()).get().get()) {
     cout << " |\n";
-    rec_grid_print(Int(Add(x, Int(1)).get()), Int(0));
+    rec_grid_print(Int(Add(lhs, Int(1)).get()), Int(0));
     return;
   }
 
-  if (Eq(y, Int(0)).get().get()) {
+  if (Eq(rhs, Int(0)).get().get()) {
     cout << "|  ";
   }
-  if (grid[x.get()][y.get()].status()) {
+  if (grid[lhs.get()][rhs.get()].status()) {
     cout << "o ";
   } else {
     cout << ". ";
   }
-  rec_grid_print(x, Int(Add(y, Int(1)).get()));
+  rec_grid_print(lhs, Int(Add(rhs, Int(1)).get()));
 }
 
-Field Field::rec_live(Int x, Int y, Field cur) {
-  Int n = Int(grid.size());
-  Int m = Int(grid[0].size());
-  if (Eq(y, m).get().get()) {
-    return rec_live(Int(Add(x, Int(1)).get()), Int(0), cur);
+Field Field::rec_live(Int valueX, Int valueY, Field cur) {
+  const Int lhs = Int(static_cast<int>(grid.size()));
+  const Int rhs = Int(static_cast<int>(grid[0].size()));
+  if (Eq(valueY, rhs).get().get()) {
+    return rec_live(Int(Add(valueX, Int(1)).get()), Int(0), cur);
   }
-  if (Eq(x, n).get().get()) {
+  if (Eq(valueX, lhs).get().get()) {
     return cur;
   }
 
-  Cell replace = cur.field()[x.get()][y.get()].live(count(x, y));
-  return rec_live(x, Int(Add(y, Int(1)).get()), cur.with(x, y, replace));
+  const Cell replace =
+    cur.field()[valueX.get()][valueY.get()].live(count(valueX, valueY));
+  return rec_live(
+    valueX, Int(Add(valueY, Int(1)).get()), cur.with(valueX, valueY, replace));
 }
 
 void Field::print() {
@@ -105,64 +118,72 @@ void Field::print() {
 }
 
 Field Field::live() {
-  Field obj = Field(grid);
+  const Field obj = Field(grid);
   return rec_live(Int(0), Int(0), obj);
 }
 
-Field Field::with(Int x, Int y, Cell a) {
+Field Field::with(Int numberX, Int numberY, Cell cell) {
   vector<vector<Cell>> next = grid;
-  next[x.get()][y.get()] = a;
-  return Field(next);
+  next[numberX.get()][numberY.get()] = cell;
+  return {next};
 }
 
-Int Field::count(Int x, Int y) {
+Int Field::count(Int numberX, Int numberY) {
   Int cnt = Int(0);
-  Int n = Int(grid.size());
-  Int m = Int(grid[0].size());
-  if (Less(Int(Add(x, Int(1)).get()), n).get()) {
-    cnt = Int(Add(
-      cnt, Int(static_cast<int>(grid[Add(x, Int(1)).get()][y.get()].status())))
-                .get());
-    if (Less(Int(0), y).get()) {
+  const Int lhs = Int(static_cast<int>(grid.size()));
+  const Int rhs = Int(static_cast<int>(grid[0].size()));
+  if (Less(Int(Add(numberX, Int(1)).get()), lhs).get()) {
+    cnt =
+      Int(Add(cnt, Int(static_cast<int>(
+                     grid[Add(numberX, Int(1)).get()][numberY.get()].status())))
+          .get());
+    if (Less(Int(0), numberY).get()) {
       cnt = Int(
         Add(cnt, Int(static_cast<int>(
-                   grid[Add(x, Int(1)).get()][Sub(y, Int(1)).get()].status())))
+                   grid[Add(numberX, Int(1)).get()][Sub(numberY, Int(1)).get()]
+                     .status())))
           .get());
     }
-    if (Less(y, Sub(m, Int(1)).get()).get()) {
+    if (Less(numberY, Sub(rhs, Int(1)).get()).get()) {
       cnt = Int(
         Add(cnt, Int(static_cast<int>(
-                   grid[Add(x, Int(1)).get()][Add(y, Int(1)).get()].status())))
+                   grid[Add(numberX, Int(1)).get()][Add(numberY, Int(1)).get()]
+                     .status())))
           .get());
     }
   }
-  if (Less(Int(0), x).get()) {
-    cnt = Int(Add(
-      cnt, Int(static_cast<int>(grid[Sub(x, Int(1)).get()][y.get()].status())))
-                .get());
+  if (Less(Int(0), numberX).get()) {
+    cnt =
+      Int(Add(cnt, Int(static_cast<int>(
+                     grid[Sub(numberX, Int(1)).get()][numberY.get()].status())))
+          .get());
 
-    if (Less(Int(0), y).get()) {
+    if (Less(Int(0), numberY).get()) {
       cnt = Int(
         Add(cnt, Int(static_cast<int>(
-                   grid[Sub(x, Int(1)).get()][Sub(y, Int(1)).get()].status())))
+                   grid[Sub(numberX, Int(1)).get()][Sub(numberY, Int(1)).get()]
+                     .status())))
           .get());
     }
-    if (Less(y, Sub(m, Int(1)).get()).get()) {
+    if (Less(numberY, Sub(rhs, Int(1)).get()).get()) {
       cnt = Int(
         Add(cnt, Int(static_cast<int>(
-                   grid[Sub(x, Int(1)).get()][Add(y, Int(1)).get()].status())))
+                   grid[Sub(numberX, Int(1)).get()][Add(numberY, Int(1)).get()]
+                     .status())))
           .get());
     }
   }
-  if (Less(Int(0), y).get()) {
-    cnt = Int(Add(
-      cnt, Int(static_cast<int>(grid[x.get()][Sub(y, Int(1)).get()].status())))
-                .get());
+  if (Less(Int(0), numberY).get()) {
+    cnt =
+      Int(Add(cnt, Int(static_cast<int>(
+                     grid[numberX.get()][Sub(numberY, Int(1)).get()].status())))
+          .get());
   }
-  if (Less(y, Sub(m, Int(1)).get()).get()) {
-    cnt = Int(Add(
-      cnt, Int(static_cast<int>(grid[x.get()][Add(y, Int(1)).get()].status())))
-                .get());
+  if (Less(numberY, Sub(rhs, Int(1)).get()).get()) {
+    cnt =
+      Int(Add(cnt, Int(static_cast<int>(
+                     grid[numberX.get()][Add(numberY, Int(1)).get()].status())))
+          .get());
   }
   return cnt;
 }
