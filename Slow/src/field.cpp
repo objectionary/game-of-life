@@ -132,58 +132,54 @@ Int Field::count(Int numberX, Int numberY) {
   Int cnt = Int(0);
   const Int lhs = Int(static_cast<int>(grid.size()));
   const Int rhs = Int(static_cast<int>(grid[0].size()));
-  if (Less(Int(Add(numberX, Int(1)).get()), lhs).get()) {
-    cnt =
-      Int(Add(cnt, Int(static_cast<int>(
-                     grid[Add(numberX, Int(1)).get()][numberY.get()].status())))
-          .get());
-    if (Less(Int(0), numberY).get()) {
-      cnt = Int(
-        Add(cnt, Int(static_cast<int>(
-                   grid[Add(numberX, Int(1)).get()][Sub(numberY, Int(1)).get()]
-                     .status())))
-          .get());
-    }
-    if (Less(numberY, Sub(rhs, Int(1)).get()).get()) {
-      cnt = Int(
-        Add(cnt, Int(static_cast<int>(
-                   grid[Add(numberX, Int(1)).get()][Add(numberY, Int(1)).get()]
-                     .status())))
-          .get());
-    }
-  }
-  if (Less(Int(0), numberX).get()) {
-    cnt =
-      Int(Add(cnt, Int(static_cast<int>(
-                     grid[Sub(numberX, Int(1)).get()][numberY.get()].status())))
-          .get());
 
+  const Int xPlus1 = Int(Add(numberX, Int(1)).get());
+  const Int xMinus1 = Int(Sub(numberX, Int(1)).get());
+  const Int yPlus1 = Int(Add(numberY, Int(1)).get());
+  const Int yMinus1 = Int(Sub(numberY, Int(1)).get());
+
+  if (Less(xPlus1, lhs).get()) {
+    cnt = Int(Add(
+      cnt, Int(static_cast<int>(grid[xPlus1.get()][numberY.get()].status())))
+        .get());
     if (Less(Int(0), numberY).get()) {
-      cnt = Int(
-        Add(cnt, Int(static_cast<int>(
-                   grid[Sub(numberX, Int(1)).get()][Sub(numberY, Int(1)).get()]
-                     .status())))
+      cnt = Int(Add(
+        cnt, Int(static_cast<int>(grid[xPlus1.get()][yMinus1.get()].status())))
           .get());
     }
-    if (Less(numberY, Sub(rhs, Int(1)).get()).get()) {
-      cnt = Int(
-        Add(cnt, Int(static_cast<int>(
-                   grid[Sub(numberX, Int(1)).get()][Add(numberY, Int(1)).get()]
-                     .status())))
+    if (Less(numberY, Int(Sub(rhs, Int(1)).get())).get()) {
+      cnt = Int(Add(
+        cnt, Int(static_cast<int>(grid[xPlus1.get()][yPlus1.get()].status())))
           .get());
     }
   }
+
+  if (Less(Int(0), numberX).get()) {
+    cnt = Int(Add(
+      cnt, Int(static_cast<int>(grid[xMinus1.get()][numberY.get()].status())))
+        .get());
+    if (Less(Int(0), numberY).get()) {
+      cnt = Int(Add(
+        cnt, Int(static_cast<int>(grid[xMinus1.get()][yMinus1.get()].status())))
+          .get());
+    }
+    if (Less(numberY, Int(Sub(rhs, Int(1)).get())).get()) {
+      cnt = Int(Add(
+        cnt, Int(static_cast<int>(grid[xMinus1.get()][yPlus1.get()].status())))
+          .get());
+    }
+  }
+
   if (Less(Int(0), numberY).get()) {
-    cnt =
-      Int(Add(cnt, Int(static_cast<int>(
-                     grid[numberX.get()][Sub(numberY, Int(1)).get()].status())))
-          .get());
+    cnt = Int(Add(
+      cnt, Int(static_cast<int>(grid[numberX.get()][yMinus1.get()].status())))
+        .get());
   }
-  if (Less(numberY, Sub(rhs, Int(1)).get()).get()) {
-    cnt =
-      Int(Add(cnt, Int(static_cast<int>(
-                     grid[numberX.get()][Add(numberY, Int(1)).get()].status())))
-          .get());
+  if (Less(numberY, Int(Sub(rhs, Int(1)).get())).get()) {
+    cnt = Int(Add(
+      cnt, Int(static_cast<int>(grid[numberX.get()][yPlus1.get()].status())))
+        .get());
   }
+
   return cnt;
 }
