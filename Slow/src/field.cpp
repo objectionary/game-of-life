@@ -141,44 +141,44 @@ Int Field::count(Int numberX, Int numberY) {
   if (Less(xPlus1, lhs).get()) {
     cnt = Int(Add(
       cnt, Int(static_cast<int>(grid[xPlus1.get()][numberY.get()].status())))
-        .get());
+                .get());
     if (Less(Int(0), numberY).get()) {
       cnt = Int(Add(
         cnt, Int(static_cast<int>(grid[xPlus1.get()][yMinus1.get()].status())))
-          .get());
+                  .get());
     }
     if (Less(numberY, Int(Sub(rhs, Int(1)).get())).get()) {
       cnt = Int(Add(
         cnt, Int(static_cast<int>(grid[xPlus1.get()][yPlus1.get()].status())))
-          .get());
+                  .get());
     }
   }
 
   if (Less(Int(0), numberX).get()) {
     cnt = Int(Add(
       cnt, Int(static_cast<int>(grid[xMinus1.get()][numberY.get()].status())))
-        .get());
+                .get());
     if (Less(Int(0), numberY).get()) {
       cnt = Int(Add(
         cnt, Int(static_cast<int>(grid[xMinus1.get()][yMinus1.get()].status())))
-          .get());
+                  .get());
     }
     if (Less(numberY, Int(Sub(rhs, Int(1)).get())).get()) {
       cnt = Int(Add(
         cnt, Int(static_cast<int>(grid[xMinus1.get()][yPlus1.get()].status())))
-          .get());
+                  .get());
     }
   }
 
   if (Less(Int(0), numberY).get()) {
     cnt = Int(Add(
       cnt, Int(static_cast<int>(grid[numberX.get()][yMinus1.get()].status())))
-        .get());
+                .get());
   }
   if (Less(numberY, Int(Sub(rhs, Int(1)).get())).get()) {
     cnt = Int(Add(
       cnt, Int(static_cast<int>(grid[numberX.get()][yPlus1.get()].status())))
-        .get());
+                .get());
   }
 
   return cnt;
