@@ -3,11 +3,17 @@
 
 #include "../include/args_process.h"
 
-pair<string, string> Process::split(string const &s) {  // NOLINT
-  int pos = s.find('x');
-  return {s.substr(0, pos), s.substr(pos + 1, s.length())};
+#include <cstddef>
+#include <string>
+#include <utility>
+
+using std::pair;
+
+pair<string, string> Process::split(string const &str) {
+  const size_t pos = str.find('x');
+  return {str.substr(0, pos), str.substr(pos + 1, str.length())};
 }
 
-pair<int, int> Process::convert(pair<string, string> const &p) {  // NOLINT
-  return {stoi(p.first), stoi(p.second)};
+pair<int, int> Process::convert(pair<string, string> const &param) {
+  return {stoi(param.first), stoi(param.second)};
 }

@@ -3,15 +3,19 @@
 
 #include "../include/grid.h"
 
-const int add = 5;
+#include <iostream>
 
-Grid::Grid(Size &st, Field &ff) {
-  s = st;
-  g = ff;
-}
+#include "../include/field.h"
+#include "../include/size.h"
+
+using std::cout;
+
+const int ADD = 5;
+
+Grid::Grid(Size &size, Field &field) : s(size), g(field) {}
 
 void Grid::printGrid() {
-  for (int i = 0; i < s.m * 2 + add; ++i) {
+  for (int i = 0; i < s.m * 2 + ADD; ++i) {
     cout << "-";
   }
   cout << "\n";
@@ -26,16 +30,16 @@ void Grid::printGrid() {
     }
     cout << " |\n";
   }
-  for (int i = 0; i < s.m * 2 + add; ++i) {
+  for (int i = 0; i < s.m * 2 + ADD; ++i) {
     cout << "-";
   }
-  cout << endl;
+  cout << "\n";
 }
 
 void Grid::nextGen() {
   for (int i = 0; i < s.n; ++i) {
     for (int j = 0; j < s.m; ++j) {
-      int cnt = g.count(i, j, s);
+      const int cnt = g.count(i, j, s);
       if (g.f[i][j].getCurState()) {
         g.f[i][j].changeNewState(cnt == 2 || cnt == 3);
       } else {

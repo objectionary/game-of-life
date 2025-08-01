@@ -3,9 +3,17 @@
 // SPDX-License-Identifier: MIT
 
 #include <boost/test/unit_test.hpp>
+#include <set>
+#include <string>
 #include <utility>
+#include <vector>
 
 #include "../../include/field.h"
+
+using std::pair;
+using std::set;
+using std::string;
+using std::vector;
 
 void checker(vector<pair<int,int>> check, const set<pair<int, int>>& res, int n, int m,
   const string& test_case) {

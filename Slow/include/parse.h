@@ -4,15 +4,20 @@
 #ifndef _OOP_PARSE_H_
 #define _OOP_PARSE_H_
 
-#include <bits/stdc++.h>
-
 #include <boost/program_options.hpp>
-using namespace std;
+#include <string>
+#include <utility>
+#include <vector>
+
+using std::pair;
+using std::string;
+using std::vector;
+
 namespace po = boost::program_options;
 class Parse {
 private:
-  int n = 100000;
-  int m = 100000;
+  int numberN = 100000;
+  int numberM = 100000;
   vector<pair<int, int>> points;
   po::variables_map vm;
 
@@ -25,8 +30,8 @@ public:
   vector<pair<int, int>> grid();
   po::variables_map opts();  // getters
 
-  vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> p);
-  static bool has(const string &s, char c);
+  vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> rec);
+  static bool has(const string &str, char val);
   static bool valid(string const &s);
   pair<int, int> point(const string &s) const;
   static pair<int, int> size(const string &s);

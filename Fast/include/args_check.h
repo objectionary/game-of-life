@@ -5,11 +5,16 @@
 #define LIFE_CHECK_H
 
 #include <bits/stdc++.h>
-using namespace std;
+
+#include <string>
+#include <utility>
+
+using std::pair;
+using std::string;
 
 class Check {
 public:
-  Check(){};
+  Check() {};
   static bool has_x(string const &s);
   static bool is_d(pair<string, string> const &p);
 };

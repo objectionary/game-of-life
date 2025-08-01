@@ -2,8 +2,15 @@
 // SPDX-License-Identifier: MIT
 
 #include <boost/test/unit_test.hpp>
+#include <set>
+#include <utility>
+#include <vector>
 
 #include "../../include/field.h"
+
+using std::pair;
+using std::set;
+using std::vector;
 
 BOOST_AUTO_TEST_CASE(test_field_build) {
   int n = 15;

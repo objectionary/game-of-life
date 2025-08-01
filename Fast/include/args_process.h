@@ -6,12 +6,16 @@
 
 #include <bits/stdc++.h>
 
-using namespace std;
+#include <string>
+#include <utility>
+
+using std::pair;
+using std::string;
 
 class Process {
 public:
-  Process(){};
-  pair<string, string> split(string const &s);
-  pair<int, int> convert(pair<string, string> const &p);
+  Process() {};
+  static pair<string, string> split(string const &str);
+  static pair<int, int> convert(pair<string, string> const &param);
 };
 #endif  // LIFE_PROCESS_H

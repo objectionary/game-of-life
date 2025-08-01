@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: MIT
 
 #include "../include/cell.h"
+
+#include "../include/objects.h"
+
 extern int counter;
 
 bool Cell::status() { return state.get(); }
 
-Cell::Cell(Bool st) {
-  state = st;
-  counter++;
-}
+Cell::Cell(Bool state) : state(state) { counter++; }
 
 Cell Cell::live(Int cnt) const {
   auto res =

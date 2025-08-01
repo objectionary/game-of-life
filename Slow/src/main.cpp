@@ -3,64 +3,82 @@
 
 #include <unistd.h>
 
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/value_semantic.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <iostream>
+
 #include "../include/field.h"
 #include "../include/objects.h"
 #include "../include/parse.h"
 
-const int t = 1000;
-int counter = 0;
-void sleep(int x) {
-  unsigned int microsecond = t * x;
+using boost::program_options::options_description;
+using boost::program_options::parse_command_line;
+using boost::program_options::value;
+using boost::program_options::variables_map;
+using std::cin;
+using std::cout;
+
+const int MUL = 1000;
+
+int counter = 0;  // NOLINT(misc-use-internal-linkage)
+
+namespace {
+
+void sleep(int value) {
+  const unsigned int microsecond = MUL * value;
   usleep(microsecond);
 }
 
-void rec(Int depth, Int max, Bool flag, Field cur, Parse p) {
+void rec(Int depth, Int max, Bool flag, Field cur, Parse parse) {
   cout << "\033[2J\033[1;1H";
   if (Less(max, depth).get()) {
     return;
   }
   cur.print();
-  Field next = cur.live();
+  const Field next = cur.live();
   if (flag.get()) {
-    cout << R"(If you want to play more press "n", else "q".)" << endl;
-    string s;
-    cin >> s;
-    if (s != "n") {
+    cout << R"(If you want to play more press "n", else "q".)" << "\n";
+    string str;
+    cin >> str;
+    if (str != "n") {
       return;
     }
-    rec(depth, max, Bool(true), next, p);
+    rec(depth, max, Bool(true), next, parse);
   } else {
-    sleep(p.opts()["sleep"].as<int>());
-    rec(Add(depth, Int(1)).get(), max, Bool(false), next, p);
+    sleep(parse.opts()["sleep"].as<int>());  // NOLINT(concurrency-mt-unsafe)
+    rec(Add(depth, Int(1)).get(), max, Bool(false), next, parse);
   }
 }
 
+}  // namespace
+
 const int def_val = 1000;
-int main(int ac, char *av[]) {
+int main(int number, char *chars[]) {
   int opt;
-  po::options_description desc("Allowed options");
-  desc.add_options()("help", "produce help message")("batch", po::value<int>(),
+  options_description desc("Allowed options");
+  desc.add_options()("help", "produce help message")("batch", value<int>(),
     "if set, program runs automatically and you should state the number of "
-    "cycles")("sleep", po::value<int>(&opt)->default_value(def_val),
+    "cycles")("sleep", value<int>(&opt)->default_value(def_val),
     "the number of milliseconds to wait before new generation "
-    "generated, default value is 1000")("size", po::value<string>(),
+    "generated, default value is 1000")("size", value<string>(),
     "the size of the grid, you can state this value by passing NxM where N "
     "the number of rows, M the number of columns, for example --size 20x30")(
-    "put", po::value<vector<string>>(),
+    "put", value<vector<string>>(),
     "initial alive cells, you can type many cells by passing NxM where N the "
     "number of row and M the number of column, for example --put 3x7 --put "
     "5x4");
-  po::variables_map vm;
-  po::store(po::parse_command_line(ac, av, desc), vm);
-  po::notify(vm);
-  Parse p = Parse(vm);
-  p.build();
-  Field clear = Field(Int(p.length()), Int(p.width()));
-  Field f = clear.rec_add(clear, p.grid(), Int(0));
-  if (vm.count("batch") > 0) {
-    rec(Int(0), Int(vm["batch"].as<int>()), Bool(false), f, p);
+  variables_map varMap;
+  store(parse_command_line(number, chars, desc), varMap);
+  notify(varMap);
+  Parse parse = Parse(varMap);
+  parse.build();
+  Field clear = Field(Int(parse.length()), Int(parse.width()));
+  const Field field = clear.rec_add(clear, parse.grid(), Int(0));
+  if (varMap.count("batch") > 0) {
+    rec(Int(0), Int(varMap["batch"].as<int>()), Bool(false), field, parse);
   } else {
-    rec(Int(0), Int(0), Bool(true), f, p);
+    rec(Int(0), Int(0), Bool(true), field, parse);
   }
-  cout << "The total number of created objects is: " << counter << endl;
+  cout << "The total number of created objects is: " << counter << "\n";
 }
