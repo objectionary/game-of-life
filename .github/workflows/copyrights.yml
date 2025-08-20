@@ -5,7 +5,11 @@
 name: copyrights
 'on':
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
 jobs:
   copyrights:
     timeout-minutes: 15
@@ -13,3 +17,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: yegor256/copyrights-action@0.0.12
+        with:
+          globs: >-
+            **/LICENSE.txt
+            **/Makefile
+            **/*.sh
+            **/*.yml
+            **/*.yaml
+            **/*.java
+            **/*.xml
+            **/*.hs
+            **/*.hi
+            **/*.cpp
+            **/*.hpp
+            **/*.h
+            **/*.c
+            **/*.adb
+            **/*.e
+            **/*.go
+            **/*.lisp
+            **/*.pp
+            **/*.rs
+            **/*.xsl
