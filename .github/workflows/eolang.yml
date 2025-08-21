@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
-      - run: sudo apt-get install libboost-all-dev
+      - run: npm install -g eolang
       - run: make eo-compile
       - run: make clean
