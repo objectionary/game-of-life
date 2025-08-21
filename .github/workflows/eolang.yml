@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
 # SPDX-License-Identifier: MIT
 ---
-name: Life
-'on':
+name: Eolang
+"on":
   push:
     branches: [master]
   pull_request:
@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
-      - run: sudo apt-get install libboost-all-dev
       - run: npm install -g eolang
-      - run: make
+      - run: make eo-compile
+      - run: make clean
