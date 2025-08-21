@@ -8,7 +8,7 @@
 class Repeats {
 public:
   int rep;
-  Repeats(int n);
+  Repeats(int amount);
 };
 
 #endif  // LIFE_REP_H

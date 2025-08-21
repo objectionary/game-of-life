@@ -6,10 +6,11 @@
 
 #include "grid.h"
 #include "repeats.h"
+
 class Game {
 public:
-  Game(Grid gr, Repeats rep, int time);
-  Game(Grid gr);
+  Game(Grid grid, Repeats rep, int time);
+  Game(Grid grid);
 };
 
 #endif  // LIFE_GAME_H
