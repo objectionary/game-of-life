@@ -9,10 +9,10 @@ ALL_HEADERS := $(wildcard cpp/*/include/*.h cpp/*/src/*.h)
 all: style fast slow eo-compile
 
 fast:
-	$(MAKE) -C cpp/Fast
+	$(MAKE) -C cpp/fast
 
 slow:
-	$(MAKE) -C cpp/Slow
+	$(MAKE) -C cpp/slow
 
 cpp: fast slow
 
@@ -29,5 +29,5 @@ fix:
 
 clean:
 	$(MAKE) -C eo clean
-	$(MAKE) -C cpp/Fast clean
-	$(MAKE) -C cpp/Slow clean
+	$(MAKE) -C cpp/fast clean
+	$(MAKE) -C cpp/slow clean
