@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+# SPDX-License-Identifier: MIT
+
+[default]
+extend-ignore-identifiers-re = [
+    # Ignore compiler flags like -Iinclude, -Lpath, etc.
+    "-[IL][a-zA-Z0-9_/.-]+",
+]
+
+[default.extend-words]
+Iinclude = "Iinclude" # This is a compiler flag -Iinclude
