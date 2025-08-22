@@ -1,14 +1,11 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
 # SPDX-License-Identifier: MIT
 
-.PHONY: compile dataize test clean
+.PHONY: build clean
 
-all: compile
+all: build
 
-compile:
-	eoc compile life.eo
-
-dataize:
+build:
 	eoc dataize life cycle 0
 
 clean:

@@ -4,9 +4,9 @@
 ALL_SOURCES := $(wildcard cpp/*/src/*.cpp)
 ALL_HEADERS := $(wildcard cpp/*/include/*.h cpp/*/src/*.h)
 
-.PHONY: all style fast slow eo cpp clean fix test
+.PHONY: all style fast slow eo clean fix test
 
-all: style fast slow eo-compile
+all: style fast slow eo
 
 fast:
 	$(MAKE) -C cpp/fast
@@ -14,10 +14,8 @@ fast:
 slow:
 	$(MAKE) -C cpp/slow
 
-cpp: fast slow
-
 eo:
-	$(MAKE) -C eo compile
+	$(MAKE) -C eo
 
 test:
 	$(MAKE) -C cpp/fast test
