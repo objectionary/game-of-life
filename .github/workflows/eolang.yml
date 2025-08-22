@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: npm install -g eolang
-      - run: make eo-compile
+      - run: make eo
       - run: make clean
