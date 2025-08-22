@@ -14,5 +14,8 @@ jobs:
       - uses: actions/checkout@v5
       - run: sudo apt-get install libboost-all-dev
       - run: make style
-      - run: make cpp
+      - run: make fast
+      - run: make fast-test
+      - run: make slow
+      - run: make slow-test
       - run: make clean
