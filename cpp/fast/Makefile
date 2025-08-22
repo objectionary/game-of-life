@@ -8,7 +8,7 @@ OBJECTS := ${SOURCES:.cpp=.o}
 TEST_SOURCES := $(filter-out src/main.cpp, $(shell find . -type f -name *.cpp))
 TEST_OBJECTS := ${TEST_SOURCES:.cpp=.o}
 
-.PHONY: all fast_life fast_test clean
+.PHONY: all fast_life fast_test test clean
 
 all: fast_life fast_test
 
@@ -18,6 +18,8 @@ fast_life: $(OBJECTS)
 fast_test: $(TEST_OBJECTS)
 	g++ $(TEST_OBJECTS) -lboost_unit_test_framework -o fast_test
 	./fast_test --log_level=all
+
+test: fast_test
 
 %.o: %.cpp $(HEADERS)
 	g++ -c -Iinclude $< -o $@

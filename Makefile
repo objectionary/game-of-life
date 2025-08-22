@@ -4,7 +4,7 @@
 ALL_SOURCES := $(wildcard cpp/*/src/*.cpp)
 ALL_HEADERS := $(wildcard cpp/*/include/*.h cpp/*/src/*.h)
 
-.PHONY: all style fast slow eo cpp clean fix
+.PHONY: all style fast slow eo cpp clean fix test
 
 all: style fast slow eo-compile
 
@@ -18,6 +18,10 @@ cpp: fast slow
 
 eo:
 	$(MAKE) -C eo compile
+
+test:
+	$(MAKE) -C cpp/fast test
+	$(MAKE) -C cpp/slow test
 
 style:
 	bash -c "diff -u <(cat $(ALL_SOURCES)) <(clang-format --style=file $(ALL_SOURCES))"
