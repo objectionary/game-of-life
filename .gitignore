@@ -5,3 +5,4 @@
 eo/.eoc
 node_modules/
 .claude/
+build/
