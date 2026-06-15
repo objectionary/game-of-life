@@ -1,0 +1,6 @@
+[t] > changePair
+  t.x > a
+  t.y > b
+  a.minus 1 > c
+  b.minus 1 > d
+  pair c d > @

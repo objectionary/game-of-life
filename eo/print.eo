@@ -1,0 +1,34 @@
+
+[field m] > print
+  memory 0 > x
+  seq > @
+    x.write 0
+    field.length > sz
+    while.
+      x.lt (sz.minus 1)
+      [i]
+        seq > @
+          (math.number x').mod m > rem
+          if. > res
+            eq.
+              rem
+              m.minus 1
+            join
+              if.
+                (field.at x).state
+                "o"
+                "."
+              "\n"
+            join
+              if.
+                (field.at x).state
+                "o"
+                "."
+              " "
+          x.write
+            x.plus 1
+          io.stdout
+            tt.sprintf
+              "%s"
+              res
+    true

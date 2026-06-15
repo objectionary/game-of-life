@@ -1,0 +1,23 @@
+[sz put m] > makeGrid
+  [id res] > build
+    if. > @
+      lt.
+        id
+        ^.sz
+      if.
+        inside
+          ^.put
+          id
+          ^.m
+        ^.build
+          id.plus 1
+          with.
+            res
+            cell true
+        ^.build
+          id.plus 1
+          with.
+            res
+            cell false
+      res
+  build 0 * > @

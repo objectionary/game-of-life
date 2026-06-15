@@ -1,0 +1,18 @@
+[x y field m] > check
+  field.length > sz
+  sz.div m > n
+  if. > @
+    and.
+      and.
+        x.lt n
+        x.gte 0
+      and.
+        y.lt m
+        y.gte 0
+    seq
+      (x.times m).plus y > pos
+      if.
+        (field.at pos).state
+        1
+        0
+    0

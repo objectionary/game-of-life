@@ -1,0 +1,17 @@
+
+[field m] > nextGen
+  reducei. > @
+    collections.list
+      field
+    *
+    [accum i x]
+      seq > @
+        count > cnt
+          ^.field
+          i
+          ^.m
+        with.
+          accum
+          cellLive
+            cnt
+            x

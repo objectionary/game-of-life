@@ -1,0 +1,22 @@
+
+[put id m] > inside
+  (math.number id).mod m > y
+  id.div m > x
+  [pos] > rec
+    if. > @
+      lt.
+        pos
+        ^.put.length
+      if.
+        and.
+          eq.
+            ^.x
+            (^.put.at pos).x
+          eq.
+            ^.y
+            (^.put.at pos).y
+        true
+        ^.rec
+          pos.plus 1
+      false
+  rec 0 > @

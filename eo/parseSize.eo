@@ -1,0 +1,17 @@
+
+[id arg] > parseSize
+  if. > @
+    lt.
+      id
+      arg.length
+    seq
+      (tt.sscanf "%s" (arg.at id)).at 0 > val
+      if.
+        eq.
+          val
+          "size"
+        getSize ((tt.sscanf "%s" (arg.at (id.plus 1))).at 0)
+        ^.parseSize
+          id.plus 1
+          arg
+    pair 3 3

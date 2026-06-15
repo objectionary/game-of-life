@@ -1,0 +1,15 @@
+[id arg] > parseCycle
+  if. > @
+    gt.
+      arg.length
+      id
+    step
+    10
+  [i a] > step
+    (tt.sscanf "%s" (arg.at id)).at 0 > val
+    if. > @
+      eq. val "cycle"
+      (tt.sscanf "%d" (arg.at (id.plus 1))).at 0
+      ^.parseCycle
+        id.plus 1
+        arg

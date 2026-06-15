@@ -6,7 +6,7 @@
 all: build
 
 build:
-	eoc dataize life cycle 0
+	eoc --easy --blind dataize life cycle 0
 
 clean:
 	rm -rf .eoc/

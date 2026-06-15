@@ -1,0 +1,14 @@
+[cnt c] > cellLive
+  if. > @
+    or.
+      and.
+        c.state
+        or.
+          cnt.eq 2
+          cnt.eq 3
+      and.
+        not.
+          c.state
+        cnt.eq 3
+    cell true
+    cell false

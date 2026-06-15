@@ -1,0 +1,24 @@
+
+[arg] > parsePut
+  [id arr] > rec
+    if. > @
+      lt.
+        id
+        ^.arg.length
+      seq
+        (tt.sscanf "%s" (arg.at id)).at 0 > val
+        if.
+          eq.
+            val
+            "put"
+          ^.rec
+            id.plus 2
+            with.
+              arr
+              changePair
+                getSize ((tt.sscanf "%s" (arg.at (id.plus 1))).at 0)
+          ^.rec
+            id.plus 1
+            arr
+      arr
+  rec 0 * > @

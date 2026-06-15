@@ -1,0 +1,5 @@
+[s1 s2] > join
+  s1.as-bytes > x1
+  s2.as-bytes > x2
+  x1.concat x2 > x3
+  x3.as-string > @

@@ -1,0 +1,17 @@
+[id max field m] > process
+  if. > @
+    gt.
+      max
+      id
+    next
+    true
+  [] > next
+    seq > @
+      print field m
+      io.stdout
+        tt.sprintf "%s" "\n"
+      ^.process
+        id.plus 1
+        max
+        nextGen field m
+        m

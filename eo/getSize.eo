@@ -1,0 +1,7 @@
+
+[str] > getSize
+  find str > pos
+  str.length > len
+  (tt.sscanf "%d" (str.slice 0 pos)).at 0 > n
+  (tt.sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0 > m
+  pair n m > @

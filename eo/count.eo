@@ -1,0 +1,23 @@
+
+[field id m] > count
+  (math.number id).mod m > idw
+  id.div m > idd
+  idd.minus 1 > idd1
+  idd.plus 1 > idd2
+  idw.minus 1 > idw1
+  idw.plus 1 > idw2
+  check idd1 idw1 field m > c1
+  check idd1 idw field m > c2
+  check idd1 idw2 field m > c3
+  check idd idw1 field m > c4
+  check idd idw2 field m > c5
+  check idd2 idw1 field m > c6
+  check idd2 idw field m > c7
+  check idd2 idw2 field m > c8
+  * c1 c2 c3 c4 c5 c6 c7 c8 > arr
+  reduce. > @
+    collections.list
+      arr
+    0
+    [acc x]
+      acc.plus x > @

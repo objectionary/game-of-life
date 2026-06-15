@@ -1,0 +1,15 @@
+[str] > find
+  [id] > rec
+    if. > @
+      lt.
+        id
+        str.length
+      if.
+        eq.
+          str.slice id 1
+          "x"
+        id
+        ^.rec
+          id.plus 1
+      -1
+  rec 0 > @
