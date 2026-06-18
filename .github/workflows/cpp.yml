@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: sudo apt-get install libboost-all-dev
       - run: make style
       - run: make fast
