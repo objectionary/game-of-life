@@ -4,6 +4,16 @@
 ALL_SOURCES := $(wildcard cpp/*/src/*.cpp)
 ALL_HEADERS := $(wildcard cpp/*/include/*.h cpp/*/src/*.h)
 
+GTEST_DIR = /usr/src/gtest
+GTEST_INC = -isystem $(GTEST_DIR)/include
+GTEST_LIB = -lgtest -lgtest_main -pthread
+
+CXXFLAGS += $(GTEST_INC)
+LDFLAGS += $(GTEST_LIB)
+
+fast-gtest: $(GTEST_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+
 .PHONY: all style fast fast-test slow slow-test eo clean fix test
 
 all: style fast slow eo

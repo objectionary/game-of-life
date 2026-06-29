@@ -12,7 +12,13 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
-      - run: sudo apt-get install libboost-all-dev
+      - run: sudo apt-get install libboost-all-dev libgtest-dev
+      - name: Build and install GoogleTest
+        run: |
+          cd /usr/src/gtest
+          sudo cmake CMakeLists.txt
+          sudo make
+          sudo cp lib/*.a /usr/lib
       - run: make style
       - run: make fast
       - run: make fast-test
