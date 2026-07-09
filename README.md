@@ -3,7 +3,7 @@
 ![logo](assets/logo.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/potatmen/Life/blob/master/LICENSE.txt)
-[![eolang](https://github.com/objectionary/game-of-life/actions/workflows/eolang.yml/badge.svg)](https://github.com/objectionary/game-of-life/actions/workflows/eolang.yml)
+[![make](https://github.com/objectionary/game-of-life/actions/workflows/make.yml/badge.svg)](https://github.com/objectionary/game-of-life/actions/workflows/make.yml)
 
 This project demonstrates that
 [John Conway's Game of Life][wiki]
