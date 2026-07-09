@@ -7,7 +7,6 @@ path = [
     ".DS_Store",
     ".clang-format",
     ".gitattributes",
-    ".gitignore",
     "**.json",
     "**.md",
     "**.txt",

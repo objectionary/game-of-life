@@ -1,7 +1,13 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+# SPDX-License-Identifier: MIT
+
+*.o
+.claude/
 .DS_Store
 .idea/
 .idea/
 .vscode/
+cpp/fast/fast_life
+cpp/slow/slow_life
 eo/.eoc
 node_modules/
-.claude/
