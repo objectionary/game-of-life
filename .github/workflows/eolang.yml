@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
-      - run: npm install -g eolang
+      - run: npm install -g eolang@0.36.0
       - run: make eo
+      - run: make -C eo test
       - run: make clean
