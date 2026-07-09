@@ -1,6 +1,6 @@
 # John Conway's Game of Life
 
-![[logo]((assets/logo+.png))](assets/logo.png)
+![logo](assets/logo.png)
 
 ![badge](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
@@ -37,7 +37,7 @@ To build the project, run:
 make
 ```
 
-Choose between `fast_life` or `slow_life` to start the game.
+Choose between `fast_life` and `slow_life` to start the game.
 For `fast_life`, run:
 
 ```bash
@@ -130,14 +130,15 @@ eoc dataize conway.life size NxM put AxB put CxD put ExF put ... and so on.
 
 There are some notable features of **Cell** and **Field** objects that
 should be mentioned: all `for` statements are replaced with recursion,
-objects are **immutable**, if we change something, we make a **copy**
-of the object and make changes using the constructor, so to change
-the current object we create a new one with changes.
+and objects are **immutable**. To change something, we make a **copy**
+of the object and apply the changes through the constructor, so instead
+of mutating the current object we create a new one.
 
 **Field** stores the playing field and creates the next generation.
 
 **Details:** `rec_line_print` and `rec_grid_print` print the field.
-`rec_line_print` creates the initial field. `rec_live` creates the next generation.
+`rec_create_vector` creates the initial field, and `rec_add` brings the
+requested cells to life. `rec_live` creates the next generation.
 `with` changes the `Cell` at position `(x,y)` by returning a new `Field`
 object with the modified cell.
 `count` counts alive neighbors for the cell at `(x,y)`. `live` calls
@@ -147,19 +148,21 @@ object with the modified cell.
 class Field {
 private:
   vector<vector<Cell>> grid;
-  void rec_line_print(int depth);
-  void rec_grid_print(int x, int y);
+  void rec_line_print(Int depth);
+  vector<vector<Cell>> rec_create_vector(
+    Int lhs, Int rhs, Int currLhs, Int currRhs, vector<vector<Cell>> res);
+  void rec_grid_print(Int lhs, Int rhs);
 public:
-  Field(int n, int m) : Field(make_grid(n, m)) {}
-  Field(vector<vector<Cell>> g) : grid(g) {}
+  Field(Int n, Int m) : Field(make_grid(n, m)) {}
+  Field(vector<vector<Cell>> g);
   vector<vector<Cell>> field();  // getters
-  Field rec_add(Field cur, vector<pair<int, int>> s, int pos);
-  Field rec_live(int x, int y, Field cur);
-  static vector<vector<Cell>> make_grid(int n, int m);
+  Field rec_add(Field cur, vector<pair<int, int>> rec, Int pos);
+  Field rec_live(Int x, Int y, Field cur);
+  vector<vector<Cell>> make_grid(Int lhs, Int rhs);
   Field live();
-  Field with(int x, int y, Cell a);
+  Field with(Int numberX, Int numberY, Cell cell);
   void print();  // next_gen makers
-  int count(int x, int y);
+  Int count(Int x, Int y);
 };
 ```
 
@@ -169,12 +172,12 @@ to determine the next generation state and returns a `Cell` object.
 ```cpp
 class Cell {
 private:
-  bool state;
+  Bool state;
 public:
-  Cell(bool st) : state(st) {}
-  Cell() : Cell(false) {}
-  bool status() const;
-  Cell live(int cnt) const;
+  Cell(Bool st);
+  Cell() : Cell(Bool(false)) {}
+  bool status();
+  Cell live(Int cnt) const;
 };
 ```
 
@@ -184,26 +187,26 @@ and validates input.
 ```cpp
 class Parse {
 private:
-  int n = 100000;
-  int m = 100000;
+  int numberN = 100000;
+  int numberM = 100000;
   vector<pair<int, int>> points;
   po::variables_map vm;
 public:
   Parse() : Parse(nullptr) {}
-  Parse(po::variables_map vmp) : vm(vmp) {}
+  Parse(po::variables_map vmp) : vm(vmp) {}  // constructor
   int length() const;
   int width() const;
   vector<pair<int, int>> grid();
-  po::variables_map opts();
-  vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> p);
-  static bool has(const string &s, char c);
+  po::variables_map opts();  // getters
+  vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> rec);
+  static bool has(const string &str, char val);
   static bool valid(string const &s);
   pair<int, int> point(const string &s) const;
   static pair<int, int> size(const string &s);
   static pair<int, int> split(const string &s);
   void positive();
   void cells();
-  void build();
+  void build();  // builders and checkers
 };
 ```
 
@@ -219,7 +222,7 @@ The main object is `Game(Grid(Size(), Field()), *optional* Repeats())`.
 class Repeats {
 public:
   int rep;
-  Repeats();
+  Repeats(int amount);
 };
 ```
 
@@ -232,7 +235,7 @@ class Grid {
 public:
   Size s;
   Field g;
-  Grid(Size &st, Field &ff);
+  Grid(Size &size, Field &field);
   void printGrid();
   void nextGen();
 };
@@ -245,8 +248,8 @@ class Size {
 public:
   int n;
   int m;
-  Size(){};
-  Size(int x, int y);
+  Size() {};
+  Size(int byX, int byY);
 };
 ```
 
@@ -257,10 +260,10 @@ alive cells and count alive neighbors.
 class Field {
 public:
   vector<vector<Cell>> f;
-  Field(){};
-  Field(Size sz);
-  void read_and_set(Size sz);
-  int count(int x, int y, int sz);
+  Field() {};
+  Field(Size size);
+  void read_and_set(vector<pair<int, int>> const &rawField);
+  int count(int byX, int byY, Size size);
 };
 ```
 
@@ -286,7 +289,6 @@ public:
   void setState(bool val);
   bool getCurState() const;
 };
-
 ```
 
 **Game** runs the game with a configurable interval between generations.
@@ -294,8 +296,8 @@ public:
 ```cpp
 class Game {
 public:
-  Game(Grid gr, Repeats rep, int time);
-  Game(Grid gr);
+  Game(Grid grid, Repeats rep, int time);
+  Game(Grid grid);
 };
 ```
 
@@ -304,9 +306,10 @@ public:
 ```cpp
 class Parse {
 public:
-  Parse(){};
-  static pair get_size(string const &s);
-  static vector> get_alive(vector const &a, int n, int m);
+  Parse() {};
+  static pair<int, int> get_size(string const &s);
+  static vector<pair<int, int>> get_alive(
+    vector<string> const &field, int byN, int byM);
 };
 ```
 
