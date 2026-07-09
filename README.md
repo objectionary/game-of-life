@@ -2,11 +2,8 @@
 
 ![logo](assets/logo.png)
 
-![badge](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/potatmen/Life/blob/master/LICENSE.txt)
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-![workflow badge](https://github.com/potatmen/Life/actions/workflows/Life.yml/badge.svg)
+[![eolang](https://github.com/objectionary/game-of-life/actions/workflows/eolang.yml/badge.svg)](https://github.com/objectionary/game-of-life/actions/workflows/eolang.yml)
 
 This project demonstrates that
 [John Conway's Game of Life][wiki]
