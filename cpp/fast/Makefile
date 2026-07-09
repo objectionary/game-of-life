@@ -1,6 +1,10 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
 # SPDX-License-Identifier: MIT
 
+BREW_PREFIX := $(shell brew --prefix 2>/dev/null)
+CPPFLAGS := $(if $(BREW_PREFIX),-isystem $(BREW_PREFIX)/include,)
+LDFLAGS := $(if $(BREW_PREFIX),-L$(BREW_PREFIX)/lib,)
+
 SOURCES := $(wildcard src/*.cpp)
 HEADERS := $(wildcard include/*.h src/*.h)
 OBJECTS := ${SOURCES:.cpp=.o}
@@ -16,14 +20,14 @@ TEST_OBJECTS := ${TEST_SOURCES:.cpp=.o}
 all: build
 
 build: $(OBJECTS)
-	g++ $(OBJECTS) -lboost_program_options -o fast_life
+	g++ $(LDFLAGS) $(OBJECTS) -lboost_program_options -o fast_life
 
 test: $(LIB_OBJECTS) $(TEST_OBJECTS)
-	g++ $(LIB_OBJECTS) $(TEST_OBJECTS) -lboost_unit_test_framework -lboost_program_options -o fast_test
+	g++ $(LDFLAGS) $(LIB_OBJECTS) $(TEST_OBJECTS) -lboost_unit_test_framework -lboost_program_options -o fast_test
 	./fast_test --log_level=all
 
 %.o: %.cpp $(HEADERS)
-	g++ -c -Iinclude $< -o $@
+	g++ $(CPPFLAGS) -c -Iinclude $< -o $@
 
 clean:
 	rm -f src/*.o tests/**/*.o
