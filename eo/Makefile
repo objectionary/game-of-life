@@ -6,7 +6,7 @@
 all: build
 
 build:
-	eoc dataize life cycle 0
+	eoc --parser 0.61.3 --home-tag 0.61.3 --easy dataize life cycle 0
 
 clean:
 	rm -rf .eoc/

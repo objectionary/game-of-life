@@ -1,295 +1,168 @@
-+alias org.eolang.txt.sprintf
-+alias org.eolang.io.stdout
-+alias org.eolang.txt.sscanf
-+alias org.eolang.math.number
-+alias org.eolang.collections.list
++version 0.0.0
 +spdx SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
 +spdx SPDX-License-Identifier: MIT
 
-[x y] > pair!
+# John Conway's Game of Life, driven from the command line.
+# Reads "size NxM", any number of "put AxB", and "cycle K" arguments,
+# builds the initial grid and prints K generations to the console.
+[args] > life
+  parseSize args > size
+  size.at 0 > n
+  size.at 1 > m
+  build (n.times m) m (putList args 0 *) 0 * > field
+  run 0 (parseCycle args) field m n > @
 
-[str] > find!
-  [id] > rec!
-    if. > @!
-      lt.
-        id
-        str.length
+  # Integer quotient of a divided by b.
+  [a b] > idiv
+    (a.div b).floor > @
+
+  # Remainder of a divided by b.
+  [a b] > imod
+    a.minus ((idiv a b).times b) > @
+
+  # Position of the first argument equal to key, or -1 if none.
+  [args key id] > keyPos
+    if. > @
+      id.lt args.length
       if.
-        eq.
-          str.slice id 1
-          "x"
+        (args.at id).eq key
         id
-        ^.rec
-          id.plus 1
+        keyPos args key (id.plus 1)
       -1
-  rec 0 > @!
 
-[str] > getSize!
-  find str > pos!
-  str.length > len!
-  (sscanf "%d" (str.slice 0 pos)).at 0 > n!
-  (sscanf "%d" (str.slice (pos.plus 1) ((len.minus pos).minus 1))).at 0 > m!
-  pair n m > @!
+  # Grid dimensions as a pair, defaulting to 3 by 3.
+  [args] > parseSize
+    keyPos args "size" 0 > pos
+    if. > @
+      pos.lt 0
+      * 3 3
+      Q.tt.sscanf "%dx%d" (args.at (pos.plus 1))
 
-[id arg] > parseCycle!
-  if. > @!
-    lt.
-      id
-      arg.length
-    seq
-      (sscanf "%s" (arg.at id)).at 0 > val!
+  # Number of generations to show, defaulting to 10.
+  [args] > parseCycle
+    keyPos args "cycle" 0 > pos
+    if. > @
+      pos.lt 0
+      10
+      (Q.tt.sscanf "%d" (args.at (pos.plus 1))).at 0
+
+  # Zero-based coordinates of every alive cell requested via "put".
+  [args id acc] > putList
+    if. > @
+      id.lt args.length
       if.
-        eq.
-          val
-          "cycle"
-        (sscanf "%d" (arg.at (id.plus 1))).at 0
-        ^.parseCycle
-          id.plus 1
-          arg
-    10
+        (args.at id).eq "put"
+        putList args (id.plus 2) (acc.with (* ((cell.at 0).minus 1) ((cell.at 1).minus 1)))
+        putList args (id.plus 1) acc
+      acc
+    Q.tt.sscanf "%dx%d" (args.at (id.plus 1)) > cell
 
-[id arg] > parseSize!
-  if. > @!
-    lt.
-      id
-      arg.length
-    seq
-      (sscanf "%s" (arg.at id)).at 0 > val!
+  # Whether the pair (row, col) is present in the tuple of alive cells.
+  [row col cells pos] > member
+    if. > @
+      pos.lt cells.length
       if.
-        eq.
-          val
-          "size"
-        getSize ((sscanf "%s" (arg.at (id.plus 1))).at 0)
-        ^.parseSize
-          id.plus 1
-          arg
-    pair 3 3
+        and.
+          row.eq ((cells.at pos).at 0)
+          col.eq ((cells.at pos).at 1)
+        true
+        member row col cells (pos.plus 1)
+      false
 
-[t] > changePair!
-  t.x > a!
-  t.y > b!
-  a.minus 1 > c!
-  b.minus 1 > d!
-  pair c d > @!
+  # Flat boolean grid of length total, alive where "put" asked for it.
+  [total m cells id acc] > build
+    if. > @
+      id.lt total
+      build total m cells (id.plus 1) (acc.with (member (idiv id m) (imod id m) cells 0))
+      acc
 
-[arg] > parsePut!
-  [id arr] > rec!
-    if. > @!
-      lt.
-        id
-        ^.arg.length
-      seq
-        (sscanf "%s" (arg.at id)).at 0 > val!
-        if.
-          eq.
-            val
-            "put"
-          ^.rec
-            id.plus 2
-            with.
-              arr
-              changePair
-                getSize ((sscanf "%s" (arg.at (id.plus 1))).at 0)
-          ^.rec
-            id.plus 1
-            arr
-      arr
-  rec 0 * > @!
-
-[state] > cell!
-
-[cnt c] > cellLive!
-  if. > @!
-    or.
+  # One when the cell (row, col) is inside the grid and alive, zero otherwise.
+  [field row col m n] > alive
+    if. > @
       and.
-        c.state
+        and.
+          row.gte 0
+          row.lt n
+        and.
+          col.gte 0
+          col.lt m
+      if.
+        field.at ((row.times m).plus col)
+        1
+        0
+      0
+
+  # Count of alive cells around the cell at linear index i.
+  [field i m n] > neighbors
+    imod i m > col
+    idiv i m > row
+    plus. > @
+      plus.
+        plus.
+          alive field (row.minus 1) (col.minus 1) m n
+          alive field (row.minus 1) col m n
+        plus.
+          alive field (row.minus 1) (col.plus 1) m n
+          alive field row (col.minus 1) m n
+      plus.
+        plus.
+          alive field row (col.plus 1) m n
+          alive field (row.plus 1) (col.minus 1) m n
+        plus.
+          alive field (row.plus 1) col m n
+          alive field (row.plus 1) (col.plus 1) m n
+
+  # Next state of a cell from its current state and neighbour count.
+  [state cnt] > rule
+    or. > @
+      and.
+        state
         or.
           cnt.eq 2
           cnt.eq 3
       and.
-        not.
-          c.state
+        state.not
         cnt.eq 3
-    cell TRUE
-    cell FALSE
 
-[put id m] > inside!
-  (number id).mod m > y!
-  id.div m > x!
-  [pos] > rec!
-    if. > @!
-      lt.
-        pos
-        ^.put.length
-      if.
-        and.
-          eq.
-            ^.x
-            (^.put.at pos).x
-          eq.
-            ^.y
-            (^.put.at pos).y
-        TRUE
-        ^.rec
-          pos.plus 1
-      FALSE
-  rec 0 > @!
+  # The whole grid advanced by one generation.
+  [field m n total id acc] > evolve
+    if. > @
+      id.lt total
+      evolve field m n total (id.plus 1) (acc.with (rule (field.at id) (neighbors field id m n)))
+      acc
 
-[sz put m] > makeGrid!
-  [id res] > build!
-    if. > @!
-      lt.
-        id
-        ^.sz
-      if.
-        inside
-          ^.put
-          id
-          ^.m
-        ^.build
-          id.plus 1
-          with.
-            res
-            cell TRUE
-        ^.build
-          id.plus 1
-          with.
-            res
-            cell FALSE
-      res
-  build 0 * > @!
+  # Glyph printed for one cell.
+  [state] > glyph
+    if. > @
+      state
+      "o"
+      "."
 
-[s1 s2] > join!
-  s1.as-bytes > x1!
-  s2.as-bytes > x2!
-  x1.concat x2 > x3!
-  x3.as-string > @!
+  # Separator printed after a cell: newline at the end of a row, space otherwise.
+  [rem m] > sep
+    if. > @
+      rem.eq (m.minus 1)
+      "\n"
+      " "
 
-[field m] > print!
-  memory 0 > x
-  seq > @!
-    x.write 0
-    field.length > sz!
-    while.
-      x.lt (sz.minus 1)
-      [i]
-        seq > @!
-          (number x').mod m > rem!
-          if. > res
-            eq.
-              rem
-              m.minus 1
-            join
-              if.
-                (field.at x).state
-                "o"
-                "."
-              "\n"
-            join
-              if.
-                (field.at x).state
-                "o"
-                "."
-              " "
-          x.write
-            x.plus 1
-          stdout
-            sprintf
-              "%s"
-              res
-    TRUE
+  # Print the grid, one cell at a time, from linear index i onwards.
+  [field i m] > printGrid
+    if. > @
+      i.lt field.length
+      seq *
+        Q.io.stdout
+          Q.tt.sprintf
+            "%s%s"
+            * (glyph (field.at i)) (sep (imod i m) m)
+        printGrid field (i.plus 1) m
+      true
 
-[x y field m] > check!
-  field.length > sz!
-  sz.div m > n!
-  if. > @!
-    and.
-      and.
-        x.lt n
-        x.gte 0
-      and.
-        y.lt m
-        y.gte 0
-    seq
-      (x.times m).plus y > pos!
-      if.
-        (field.at pos).state
-        1
-        0
-    0
-
-[field id m] > count!
-  (number id).mod m > idw!
-  id.div m > idd!
-  idd.minus 1 > idd1!
-  idd.plus 1 > idd2!
-  idw.minus 1 > idw1!
-  idw.plus 1 > idw2!
-  check idd1 idw1 field m > c1!
-  check idd1 idw field m > c2!
-  check idd1 idw2 field m > c3!
-  check idd idw1 field m > c4!
-  check idd idw2 field m > c5!
-  check idd2 idw1 field m > c6!
-  check idd2 idw field m > c7!
-  check idd2 idw2 field m > c8!
-  * c1 c2 c3 c4 c5 c6 c7 c8 > arr!
-  reduce. > @!
-    list
-      arr
-    0
-    [acc x]
-      acc.plus x > @!
-
-[field m] > nextGen!
-  reducei. > @!
-    list
-      field
-    *
-    [accum i x]
-      seq > @!
-        count > cnt!
-          ^.field
-          i
-          ^.m
-        with.
-          accum
-          cellLive
-            cnt
-            x
-
-[id max field m] > process!
-  if. > @!
-    lt.
-      id
-      max
-    seq
-      print field m
-      stdout
-        sprintf
-          "%s"
-          "\n"
-      ^.process
-        id.plus 1
-        max
-        nextGen
-          field
-          m
-        m
-    TRUE
-[args...] > life
-  parseCycle 0 args > cycle!
-  parseSize 0 args > size!
-  parsePut args > put!
-  size.x > n!
-  size.y > m!
-  makeGrid > field!
-    n.times m
-    put
-    m
-  nextGen field m > res!
-  process > @!
-    0
-    cycle
-    field
-    m
+  # Print max generations, evolving the grid between each of them.
+  [id max field m n] > run
+    if. > @
+      id.lt max
+      seq *
+        printGrid field 0 m
+        Q.io.stdout (Q.tt.sprintf "%s" (* "\n"))
+        run (id.plus 1) max (evolve field m n field.length 0 *) m n
+      true
