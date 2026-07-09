@@ -11,6 +11,6 @@ using std::string;
 class Valid {
 public:
   Valid() {};
-  static bool is_valid(string const &str);
+  static bool is_valid(string const& str);
 };
 #endif  // LIFE_VALID_H

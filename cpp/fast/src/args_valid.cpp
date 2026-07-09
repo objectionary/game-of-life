@@ -6,7 +6,7 @@
 #include "../include/args_check.h"
 #include "../include/args_process.h"
 
-bool Valid::is_valid(string const &str) {
+bool Valid::is_valid(string const& str) {
   if (Check::has_x(str)) {
     return Check::is_d(Process::split(str));
   }

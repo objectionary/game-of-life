@@ -10,9 +10,15 @@ name: make
 jobs:
   make:
     runs-on: ubuntu-24.04
+    env:
+      CLANG_FORMAT: clang-format-22
+      CLANG_TIDY: clang-tidy-22
     steps:
       - uses: actions/checkout@v5
       - run: sudo apt-get update
+      - run: wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
+      - run: sudo bash /tmp/llvm.sh 22
+      - run: sudo apt-get install --yes clang-format-22 clang-tidy-22
       - run: sudo apt-get install --yes libboost-all-dev=1.83.*
       - run: npm install -g eolang@0.36.0
       - run: make style

@@ -18,7 +18,7 @@ public:
   vector<vector<Cell>> f;
   Field() {};
   Field(Size size);
-  void read_and_set(vector<pair<int, int>> const &rawField);
+  void read_and_set(vector<pair<int, int>> const& rawField);
   int count(int byX, int byY, Size size);
 };
 

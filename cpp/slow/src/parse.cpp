@@ -21,23 +21,23 @@ vector<pair<int, int>> Parse::grid() { return points; }
 
 variables_map Parse::opts() { return vm; }
 
-bool Parse::has(const string &str, char val) {
+bool Parse::has(const string& str, char val) {
   return str.find(val) < str.length() - 1 && str.find(val) > 0;
 }
 
-pair<int, int> Parse::split(const string &str) {
+pair<int, int> Parse::split(const string& str) {
   const int pos = static_cast<int>(str.find('x'));
   const int left = stoi(str.substr(0, pos));
   const int right = stoi(str.substr(pos + 1, str.length()));
   return {left, right};
 }
 
-bool Parse::valid(string const &str) {
+bool Parse::valid(string const& str) {
   const pair<int, int> val = split(str);
   return val.first > 0 && val.second > 0;
 }
 
-pair<int, int> Parse::point(const string &str) const {
+pair<int, int> Parse::point(const string& str) const {
   if (has(str, 'x') && valid(str)) {
     auto res = split(str);
     if (res.first > numberN || res.second > numberM) {
@@ -50,7 +50,7 @@ pair<int, int> Parse::point(const string &str) const {
   exit(0);  // NOLINT(concurrency-mt-unsafe)
 }
 
-pair<int, int> Parse::size(const string &str) {
+pair<int, int> Parse::size(const string& str) {
   if (has(str, 'x') && valid(str)) {
     return split(str);
   }

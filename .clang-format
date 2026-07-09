@@ -8,3 +8,6 @@ ContinuationIndentWidth: 2
 IndentWidth:     2
 TabWidth: 4
 AlignAfterOpenBracket: DontAlign
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Left

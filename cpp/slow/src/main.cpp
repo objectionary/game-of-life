@@ -54,7 +54,7 @@ void rec(Int depth, Int max, Bool flag, Field cur, Parse parse) {
 }  // namespace
 
 const int def_val = 1000;
-int main(int number, char *chars[]) {
+int main(int number, char* chars[]) {
   int opt;
   options_description desc("Allowed options");
   desc.add_options()("help", "produce help message")("batch", value<int>(),

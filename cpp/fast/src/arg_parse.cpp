@@ -17,7 +17,7 @@ using std::pair;
 
 const int SIZE = 20;
 
-pair<int, int> Parse::get_size(string const &str) {
+pair<int, int> Parse::get_size(string const& str) {
   if (str.empty()) {
     return {SIZE, SIZE};
   }
@@ -29,9 +29,9 @@ pair<int, int> Parse::get_size(string const &str) {
 }
 
 vector<pair<int, int>> Parse::get_alive(
-  vector<string> const &field, int byN, int byM) {
+  vector<string> const& field, int byN, int byM) {
   vector<pair<int, int>> res;
-  for (auto const &str : field) {
+  for (auto const& str : field) {
     const Valid valid = Valid();
     if (Valid::is_valid(str)) {
       const pair<int, int> processes = Process::convert(Process::split(str));

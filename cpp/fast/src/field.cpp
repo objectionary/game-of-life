@@ -18,8 +18,8 @@ Field::Field(Size size) {
   }
 }
 
-void Field::read_and_set(vector<pair<int, int>> const &rawField) {
-  for (auto const &pair : rawField) {
+void Field::read_and_set(vector<pair<int, int>> const& rawField) {
+  for (auto const& pair : rawField) {
     const int byX = pair.first;
     const int byY = pair.second;
     f[byX - 1][byY - 1].setState(true);

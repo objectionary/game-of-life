@@ -11,17 +11,17 @@ using std::isdigit;
 using std::pair;
 using std::string;
 
-bool Check::has_x(string const &str) {
+bool Check::has_x(string const& str) {
   return str.find('x') < str.length() - 1 && str.find('x') > 0;
 }
 
-bool Check::is_d(pair<string, string> const &param) {
-  for (char const &coord : param.first) {
+bool Check::is_d(pair<string, string> const& param) {
+  for (char const& coord : param.first) {
     if (isdigit(coord) == 0) {
       return false;
     }
   }
-  for (char const &coord : param.second) {
+  for (char const& coord : param.second) {
     if (isdigit(coord) == 0) {
       return false;
     }

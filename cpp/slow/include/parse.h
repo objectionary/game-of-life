@@ -31,11 +31,11 @@ public:
   po::variables_map opts();  // getters
 
   vector<pair<int, int>> rec_cells(int pos, vector<pair<int, int>> rec);
-  static bool has(const string &str, char val);
-  static bool valid(string const &s);
-  pair<int, int> point(const string &s) const;
-  static pair<int, int> size(const string &s);
-  static pair<int, int> split(const string &s);
+  static bool has(const string& str, char val);
+  static bool valid(string const& s);
+  pair<int, int> point(const string& s) const;
+  static pair<int, int> size(const string& s);
+  static pair<int, int> split(const string& s);
   void positive();
   void cells();
   void build();  // builders and checkers

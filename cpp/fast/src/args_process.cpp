@@ -9,11 +9,11 @@
 
 using std::pair;
 
-pair<string, string> Process::split(string const &str) {
+pair<string, string> Process::split(string const& str) {
   const size_t pos = str.find('x');
   return {str.substr(0, pos), str.substr(pos + 1, str.length())};
 }
 
-pair<int, int> Process::convert(pair<string, string> const &param) {
+pair<int, int> Process::convert(pair<string, string> const& param) {
   return {stoi(param.first), stoi(param.second)};
 }

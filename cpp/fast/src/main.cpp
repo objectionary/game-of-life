@@ -29,7 +29,7 @@ using boost::program_options::parse_command_line;
 using boost::program_options::value;
 using boost::program_options::variables_map;
 
-int main(int ac, char *av[]) {  // NOLINT
+int main(int ac, char* av[]) {  // NOLINT
 
   int opt;
   options_description desc("Allowed options");

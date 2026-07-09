@@ -13,7 +13,7 @@ using std::string;
 class Process {
 public:
   Process() {};
-  static pair<string, string> split(string const &str);
-  static pair<int, int> convert(pair<string, string> const &param);
+  static pair<string, string> split(string const& str);
+  static pair<int, int> convert(pair<string, string> const& param);
 };
 #endif  // LIFE_PROCESS_H

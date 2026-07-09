@@ -12,10 +12,10 @@ using std::cout;
 
 const int ADD = 5;
 
-Grid::Grid(Size &size, Field &field) : s(size), g(field) {}
+Grid::Grid(Size& size, Field& field) : s(size), g(field) {}
 
 void Grid::printGrid() {
-  for (int i = 0; i < s.m * 2 + ADD; ++i) {
+  for (int i = 0; i < (s.m * 2) + ADD; ++i) {
     cout << "-";
   }
   cout << "\n";
@@ -30,7 +30,7 @@ void Grid::printGrid() {
     }
     cout << " |\n";
   }
-  for (int i = 0; i < s.m * 2 + ADD; ++i) {
+  for (int i = 0; i < (s.m * 2) + ADD; ++i) {
     cout << "-";
   }
   cout << "\n";

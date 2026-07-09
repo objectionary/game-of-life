@@ -13,7 +13,7 @@ using std::string;
 class Check {
 public:
   Check() {};
-  static bool has_x(string const &s);
-  static bool is_d(pair<string, string> const &p);
+  static bool has_x(string const& s);
+  static bool is_d(pair<string, string> const& p);
 };
 #endif  // LIFE_CHECK_H
