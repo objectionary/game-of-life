@@ -4,8 +4,6 @@
 #ifndef LIFE_VALID_H
 #define LIFE_VALID_H
 
-#include <bits/stdc++.h>
-
 #include <string>
 
 using std::string;

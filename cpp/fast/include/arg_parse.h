@@ -4,7 +4,9 @@
 #ifndef LIFE_PARSE_H
 #define LIFE_PARSE_H
 
-#include <bits/stdc++.h>
+#include <string>
+#include <utility>
+#include <vector>
 using namespace std;
 
 class Parse {

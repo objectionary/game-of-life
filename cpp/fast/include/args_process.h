@@ -4,8 +4,6 @@
 #ifndef LIFE_PROCESS_H
 #define LIFE_PROCESS_H
 
-#include <bits/stdc++.h>
-
 #include <string>
 #include <utility>
 

@@ -4,8 +4,6 @@
 #ifndef LIFE_CHECK_H
 #define LIFE_CHECK_H
 
-#include <bits/stdc++.h>
-
 #include <string>
 #include <utility>
 

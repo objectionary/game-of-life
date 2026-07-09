@@ -3,6 +3,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <set>
+
 #include "../../include/arg_parse.h"
 #include "../../include/field.h"
 #include "../../include/grid.h"
