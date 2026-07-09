@@ -109,7 +109,7 @@ To see an infinite loop pattern:
 To run the `EO` version:
 
 ```bash
-eoc --alone dataize life size 3x3 put 2x1 put 2x2 put 2x3
+eoc --alone dataize conway.life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
 You can use custom arguments. For the `size` option, use `NxM` where
@@ -117,13 +117,13 @@ You can use custom arguments. For the `size` option, use `NxM` where
 at position `AxB`:
 
 ```bash
-eoc --alone dataize life size NxM put AxB put CxD put ExF put ... and so on.
+eoc --alone dataize conway.life size NxM put AxB put CxD put ExF put ... and so on.
 ```
 
 To recompile after changing the `EO` file, omit the `--alone` option:
 
 ```bash
-eoc dataize life size NxM put AxB put CxD put ExF put ... and so on.
+eoc dataize conway.life size NxM put AxB put CxD put ExF put ... and so on.
 ```
 
 ## Slow Version

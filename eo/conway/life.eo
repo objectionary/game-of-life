@@ -1,0 +1,43 @@
++home https://github.com/objectionary/game-of-life
++package conway
++version 0.0.0
++spdx SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
++spdx SPDX-License-Identifier: MIT
+
+# John Conway's Game of Life driven from the command line: it parses
+# the arguments, builds the starting field and prints each generation.
+[args] > life
+  run 0 parsed.cycle (populate (blank parsed.rows parsed.cols) 0) > @
+  Q.conway.parse args > parsed
+
+  # A brand-new field of rows by cols cells, every one of them dead.
+  [rows cols] > blank
+    Q.conway.field (dead (rows.times cols) *) cols rows > @
+
+  # A tuple of n dead cells, folded down from n to zero.
+  [n acc] > dead
+    if. > @
+      n.eq 0
+      acc
+      dead (n.minus 1) (acc.with false)
+
+  # The field with every requested "put" cell brought to life, from put idx.
+  [fld idx] > populate
+    if. > @
+      idx.lt parsed.puts.length
+      populate (fld.with ((parsed.puts.at idx).at 0) ((parsed.puts.at idx).at 1) true) (idx.plus 1)
+      fld
+
+  # Print max generations, evolving the field between one and the next.
+  [id max fld] > run
+    if. > @
+      id.lt max
+      seq *
+        fld.print
+        Q.io.stdout (Q.tt.sprintf "%s" (* "\n"))
+        run (id.plus 1) max fld.live
+      true
+
+  # With zero cycles requested the game prints nothing and simply succeeds.
+  [] +> runs-with-zero-cycles
+    life (* "cycle" "0") > @

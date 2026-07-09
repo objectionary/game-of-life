@@ -1,0 +1,118 @@
++home https://github.com/objectionary/game-of-life
++package conway
++version 0.0.0
++spdx SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
++spdx SPDX-License-Identifier: MIT
+
+# A rectangular grid of cells, stored row by row as a flat tuple of
+# boolean states, that can count neighbours, evolve and print itself.
+[cells m n] > field
+  cells > @
+
+  # Integer quotient of a divided by b, rounded towards negative infinity.
+  [a b] > idiv
+    (a.div b).floor > @
+
+  # Remainder of the division of a by b, matching idiv.
+  [a b] > imod
+    a.minus ((idiv a b).times b) > @
+
+  # One when the cell at (row, col) is inside the grid and alive, else zero.
+  [row col] > at
+    if. > @
+      and.
+        and.
+          row.gte 0
+          row.lt ^.n
+        and.
+          col.gte 0
+          col.lt ^.m
+      if.
+        ^.cells.at ((row.times ^.m).plus col)
+        1
+        0
+      0
+
+  # Number of alive neighbours around the cell at linear index i.
+  [i] > count
+    plus. > @
+      plus.
+        plus.
+          at (row.minus 1) (col.minus 1)
+          at (row.minus 1) col
+        plus.
+          at (row.minus 1) (col.plus 1)
+          at row (col.minus 1)
+      plus.
+        plus.
+          at row (col.plus 1)
+          at (row.plus 1) (col.minus 1)
+        plus.
+          at (row.plus 1) col
+          at (row.plus 1) (col.plus 1)
+    imod i ^.m > col
+    idiv i ^.m > row
+
+  # Cells of the next generation, folded from linear index id onwards.
+  [id acc] > evolve
+    if. > @
+      id.lt ^.cells.length
+      evolve (id.plus 1) (acc.with ((Q.conway.cell (^.cells.at id)).live (count id)))
+      acc
+
+  # This field advanced by exactly one generation.
+  [] > live
+    Q.conway.field (evolve 0 *) ^.m ^.n > @
+
+  # This field's cells with the (row, col) entry set to state, folded from id.
+  [row col state id acc] > replaced
+    if. > @
+      id.lt ^.cells.length
+      replaced row col state (id.plus 1) (acc.with (if. (id.eq ((row.times ^.m).plus col)) state (^.cells.at id)))
+      acc
+
+  # A copy of this field with the cell at (row, col) set to the given state.
+  [row col state] > with
+    Q.conway.field (replaced row col state 0 *) ^.m ^.n > @
+
+  # Glyph shown for one cell: the letter o when alive, a dot when dead.
+  [state] > glyph
+    if. > @
+      state
+      "o"
+      "."
+
+  # Separator printed after a cell: a newline ends a row, a space otherwise.
+  [rem] > sep
+    if. > @
+      rem.eq (^.m.minus 1)
+      "\n"
+      " "
+
+  # Print the cells from linear index id onwards, one cell per step.
+  [id] > printFrom
+    if. > @
+      id.lt ^.cells.length
+      seq *
+        Q.io.stdout
+          Q.tt.sprintf
+            "%s%s"
+            * (glyph (^.cells.at id)) (sep (imod id ^.m))
+        printFrom (id.plus 1)
+      true
+
+  # Print the whole field to the console, one row per line.
+  [] > print
+    printFrom 0 > @
+
+  # The only cell of a one-by-one live field reports itself as alive.
+  [] +> counts-single-alive-cell
+    eq. > @
+      (field (* true) 1 1).at 0 0
+      1
+
+  # A cell counts the single living neighbour sitting next to it.
+  [] +> counts-one-neighbour
+    eq. > @
+      (field (* false true false) 3 1).count 0
+      1

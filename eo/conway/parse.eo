@@ -1,0 +1,87 @@
++home https://github.com/objectionary/game-of-life
++package conway
++version 0.0.0
++spdx SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
++spdx SPDX-License-Identifier: MIT
+
+# Command-line arguments read into a grid size, a number of generations
+# and the list of cells that start the game alive.
+[args] > parse
+  args > @
+
+  # Position of the first argument equal to key, or -1 when it is absent.
+  [key id] > keyPos
+    if. > @
+      id.lt ^.args.length
+      if.
+        (^.args.at id).eq key
+        id
+        keyPos key (id.plus 1)
+      -1
+
+  # Grid dimensions pair from a "size" argument, or the three-by-three default.
+  [] > dims
+    if. > @
+      pos.lt 0
+      * 3 3
+      Q.tt.sscanf "%dx%d" (^.args.at (pos.plus 1))
+    keyPos "size" 0 > pos
+
+  # Number of grid rows requested on the command line.
+  [] > rows
+    dims.at 0 > @
+
+  # Number of grid columns requested on the command line.
+  [] > cols
+    dims.at 1 > @
+
+  # Number of generations to display, ten unless a "cycle" argument says otherwise.
+  [] > cycle
+    if. > @
+      pos.lt 0
+      10
+      (Q.tt.sscanf "%d" (^.args.at (pos.plus 1))).at 0
+    keyPos "cycle" 0 > pos
+
+  # Zero-based (row, col) pair parsed from an "AxB" argument text.
+  [text] > pair
+    * ((raw.at 0).minus 1) ((raw.at 1).minus 1) > @
+    Q.tt.sscanf "%dx%d" text > raw
+
+  # Alive-cell coordinates collected from "put" arguments, from index id onwards.
+  [id acc] > putsFrom
+    if. > @
+      id.lt ^.args.length
+      if.
+        (^.args.at id).eq "put"
+        putsFrom (id.plus 2) (acc.with (pair (^.args.at (id.plus 1))))
+        putsFrom (id.plus 1) acc
+      acc
+
+  # Every requested alive cell as a tuple of zero-based coordinate pairs.
+  [] > puts
+    putsFrom 0 * > @
+
+  # A "size" argument sets the number of grid rows.
+  [] +> reads-rows-from-size
+    eq. > @
+      (parse (* "size" "4x5")).rows
+      4
+
+  # A "size" argument sets the number of grid columns.
+  [] +> reads-cols-from-size
+    eq. > @
+      (parse (* "size" "4x5")).cols
+      5
+
+  # A "cycle" argument sets the number of generations to show.
+  [] +> reads-cycle-count
+    eq. > @
+      (parse (* "cycle" "7")).cycle
+      7
+
+  # A "put" argument becomes a zero-based coordinate pair.
+  [] +> converts-put-to-zero-based
+    eq. > @
+      ((parse (* "put" "2x3")).puts.at 0).at 0
+      1

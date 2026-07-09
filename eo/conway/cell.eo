@@ -1,0 +1,35 @@
++home https://github.com/objectionary/game-of-life
++package conway
++version 0.0.0
++spdx SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
++spdx SPDX-License-Identifier: MIT
+
+# A single cell that knows only its own alive-or-dead state and the
+# rule that turns a neighbour count into its next-generation state.
+[state] > cell
+  state > @
+
+  # Next-generation state of this cell given its number of alive neighbours.
+  [cnt] > live
+    or. > @
+      and.
+        ^.state
+        or.
+          cnt.eq 2
+          cnt.eq 3
+      and.
+        ^.state.not
+        cnt.eq 3
+
+  # A live cell with two alive neighbours survives into the next generation.
+  [] +> survives-with-two-neighbours
+    (cell true).live 2 > @
+
+  # A live cell with a single alive neighbour dies of loneliness.
+  [] +> dies-with-one-neighbour
+    not. > @
+      (cell true).live 1
+
+  # A dead cell with exactly three alive neighbours is born.
+  [] +> born-with-three-neighbours
+    (cell false).live 3 > @
