@@ -114,7 +114,7 @@ You can use custom arguments. For the `size` option, use `NxM` where
 at position `AxB`:
 
 ```bash
-eoc --alone dataize conway.life size NxM put AxB put CxD put ExF put ... and so on.
+eoc --alone dataize conway.life size NxM put AxB put CxD put ... and so on.
 ```
 
 To recompile after changing the `EO` file, omit the `--alone` option:
