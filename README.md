@@ -103,10 +103,11 @@ To see an infinite loop pattern:
 ./fast_life --batch 40 --sleep 500 --size 10x10 --put 5x4 --put 5x5 --put 5x6
 ```
 
-To run the `EO` version:
+The `EO` version lives in the `eo` directory and runs from there, where
+`make` leaves its compiled artifacts:
 
 ```bash
-eoc --alone dataize conway.life size 3x3 put 2x1 put 2x2 put 2x3
+cd eo && eoc --alone dataize conway.life size 3x3 put 2x1 put 2x2 put 2x3
 ```
 
 You can use custom arguments. For the `size` option, use `NxM` where
@@ -114,13 +115,13 @@ You can use custom arguments. For the `size` option, use `NxM` where
 at position `AxB`:
 
 ```bash
-eoc --alone dataize conway.life size NxM put AxB put CxD put ... and so on.
+cd eo && eoc --alone dataize conway.life size NxM put AxB put CxD ...
 ```
 
 To recompile after changing the `EO` file, omit the `--alone` option:
 
 ```bash
-eoc dataize conway.life size NxM put AxB put CxD put ExF put ... and so on.
+cd eo && eoc dataize conway.life size NxM put AxB put CxD put ExF ...
 ```
 
 ## Slow Version
