@@ -9,7 +9,7 @@ name: make
     branches: [master]
 jobs:
   make:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       CLANG_FORMAT: clang-format-22
       CLANG_TIDY: clang-tidy-22
