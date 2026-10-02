@@ -15,7 +15,7 @@ jobs:
       CLANG_FORMAT: clang-format-22
       CLANG_TIDY: clang-tidy-22
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: sudo apt-get update
       - run: wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
       - run: sudo bash /tmp/llvm.sh 22
