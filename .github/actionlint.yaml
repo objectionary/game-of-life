@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022 Anton Shatokhin
+# SPDX-License-Identifier: MIT
+---
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
