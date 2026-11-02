@@ -23,7 +23,7 @@ jobs:
       - run: wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
       - run: sudo bash /tmp/llvm.sh 22
       - run: sudo apt-get install --yes clang-format-22 clang-tidy-22
-      - run: sudo apt-get install --yes libboost-all-dev=1.83.*
+      - run: sudo apt-get install --yes libboost-all-dev
       - run: npm install -g eolang@0.37.1
       - run: make style
       - run: make fast
