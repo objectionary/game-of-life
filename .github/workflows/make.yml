@@ -18,7 +18,7 @@ jobs:
       CLANG_FORMAT: clang-format-22
       CLANG_TIDY: clang-tidy-22
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: sudo apt-get update
       - run: wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
       - run: sudo bash /tmp/llvm.sh 22
@@ -40,7 +40,7 @@ jobs:
     permissions:
       actions: read
     steps:
-      - uses: yegor256/terald-action@a0ef862a24f962a4258fd9390d0a67b5529f0eef  # master
+      - uses: yegor256/terald-action@3c4108ea91be81dce4e1bba7b3ee55f9053813df  # master
         with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           chat: -1004371404002
