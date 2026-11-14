@@ -59,7 +59,7 @@ pair<int, int> Parse::size(const string& str) {
 }
 
 void Parse::positive() {
-  if (vm["batch"].as<int>() <= 0) {
+  if (vm.count("batch") > 0 && vm["batch"].as<int>() <= 0) {
     cout << "Incorrect batch input" << "\n";
     exit(0);  // NOLINT(concurrency-mt-unsafe)
   }
