@@ -10,6 +10,8 @@ name: checkmake
   pull_request:
     branches:
       - master
+permissions:
+  contents: read
 concurrency:
   group: checkmake-${{ github.ref }}
   cancel-in-progress: true

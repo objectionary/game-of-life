@@ -14,13 +14,24 @@ name: actionlint
       - master
     paths:
       - '.github/**'
+permissions:
+  contents: read
 concurrency:
   group: actionlint-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   actionlint:
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: read
     timeout-minutes: 15
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
+      - name: Test workflow token permissions
+        run: |
+          python3 -m venv "${RUNNER_TEMP}/workflow-tests"
+          "${RUNNER_TEMP}/workflow-tests/bin/pip" install PyYAML==6.0.3
+          "${RUNNER_TEMP}/workflow-tests/bin/python" .github/tests/test_workflow_permissions.py
       - uses: reviewdog/action-actionlint@v1.84.1
