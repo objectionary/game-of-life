@@ -15,6 +15,7 @@ build:
 
 test:
 	$(EO) test
+	bash tests/put.sh $(EO) --alone
 
 clean:
 	rm -rf .eoc/
