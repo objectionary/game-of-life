@@ -14,7 +14,7 @@ build:
 	$(EO) dataize conway.life cycle 0
 
 test:
-	$(EO) test
+	$(EO) test --heap 2G
 
 clean:
 	rm -rf .eoc/

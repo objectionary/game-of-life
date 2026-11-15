@@ -41,7 +41,16 @@
     ^.keyPos "cycle" 0 > pos
 
   [^ text] > pair
-    * ((raw.at 0).minus 1) ((raw.at 1).minus 1) > @
+    if. > @
+      and.
+        and.
+          (raw.at 0).gt 0
+          (raw.at 1).gt 0
+        and.
+          ((raw.at 0).gt ^.rows).not
+          ((raw.at 1).gt ^.cols).not
+      * ((raw.at 0).minus 1) ((raw.at 1).minus 1)
+      T "Put coordinate is outside the grid"
     "%dx%d".scanf text > raw
 
   [^ id acc] > putsFrom
@@ -75,3 +84,32 @@
     eq. > @
       ((parse (* "put" "2x3")).puts.at 0).at 0
       1
+
+  (((parse (* "size" "2x3")).pair "0x1").at 0).eq 0 --> stops-on-zero-row
+
+  (((parse (* "size" "2x3")).pair "1x0").at 1).eq 0 --> stops-on-zero-column
+
+  (((parse (* "size" "2x3")).pair "-1x1").at 0).eq 0 --> stops-on-negative-row
+
+  (((parse (* "size" "2x3")).pair "1x-1").at 1).eq 0 --> stops-on-negative-column
+
+  (((parse (* "size" "2x3")).pair "3x1").at 0).eq 0 --> stops-on-row-beyond-grid
+
+  (((parse (* "size" "2x3")).pair "1x4").at 1).eq 0 --> stops-on-column-beyond-grid
+
+  (((parse (* "put" "0x1")).puts.at 0).at 0).eq 0 --> stops-on-out-of-range-put
+
+  [] +> accepts-first-cell
+    eq. > @
+      ((parse *).pair "1x1").at 0
+      0
+
+  [] +> accepts-last-row
+    eq. > @
+      ((parse *).pair "3x3").at 0
+      2
+
+  [] +> accepts-last-column
+    eq. > @
+      ((parse *).pair "3x3").at 1
+      2
