@@ -23,4 +23,5 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
+      - run: python3 .github/tests/test_pdd_workflow.py
       - uses: reviewdog/action-actionlint@v1.84.1
