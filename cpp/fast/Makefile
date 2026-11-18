@@ -22,9 +22,10 @@ all: build
 build: $(OBJECTS)
 	g++ $(LDFLAGS) $(OBJECTS) -lboost_program_options -o fast_life
 
-test: $(LIB_OBJECTS) $(TEST_OBJECTS)
+test: build $(LIB_OBJECTS) $(TEST_OBJECTS)
 	g++ $(LDFLAGS) $(LIB_OBJECTS) $(TEST_OBJECTS) -lboost_unit_test_framework -lboost_program_options -o fast_test
 	./fast_test --log_level=all
+	python3 tests/check_exit.py
 
 %.o: %.cpp $(HEADERS)
 	g++ $(CPPFLAGS) -c -Iinclude $< -o $@
