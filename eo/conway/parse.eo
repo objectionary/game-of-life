@@ -37,8 +37,12 @@
     if. > @
       pos.lt 0
       10
-      ("%d".scanf (^.args.at (pos.plus 1))).at 0
+      if.
+        count.lt 0
+        T "Cycle count must be non-negative"
+        count
     ^.keyPos "cycle" 0 > pos
+    ("%d".scanf (^.args.at (pos.plus 1))).at 0 > count
 
   [^ text] > pair
     if. > @
@@ -113,3 +117,13 @@
     eq. > @
       ((parse *).pair "3x3").at 1
       2
+
+  [] +> accepts-zero-cycles
+    eq. > @
+      (parse (* "cycle" "0")).cycle
+      0
+
+  [] +> defaults-to-ten-cycles
+    eq. > @
+      (parse *).cycle
+      10

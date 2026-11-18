@@ -15,6 +15,7 @@ build:
 
 test:
 	$(EO) test --heap 2G
+	bash tests/cycle.sh $(EO) --alone
 
 clean:
 	rm -rf .eoc/
