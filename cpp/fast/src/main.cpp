@@ -62,14 +62,14 @@ int main(int ac, char* av[]) {  // NOLINT
   Field field = Field(size);
   field.read_and_set(put);
   if (varMap["sleep"].as<int>() < 0) {
-    cout << "Incorrect sleep option value" << "\n";
-    exit(0);  // NOLINT(concurrency-mt-unsafe)
+    std::cerr << "Incorrect sleep option value" << "\n";
+    exit(EXIT_FAILURE);  // NOLINT(concurrency-mt-unsafe)
   }
 
   if (varMap.count("batch") > 0) {
     if (varMap["batch"].as<int>() < 0) {
-      cout << "Incorrect batch option value" << "\n";
-      exit(0);  // NOLINT(concurrency-mt-unsafe)
+      std::cerr << "Incorrect batch option value" << "\n";
+      exit(EXIT_FAILURE);  // NOLINT(concurrency-mt-unsafe)
     }
     const Game game = Game(Grid(size, field),
       Repeats(varMap["batch"].as<int>()), varMap["sleep"].as<int>());
