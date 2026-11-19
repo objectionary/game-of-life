@@ -16,6 +16,8 @@ name: markdown-lint
     paths:
       - '**.md'
       - '.github/workflows/markdown-lint.yml'
+permissions:
+  contents: read
 concurrency:
   group: markdown-lint-${{ github.ref }}
   cancel-in-progress: true

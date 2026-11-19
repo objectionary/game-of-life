@@ -8,6 +8,8 @@ name: make
     branches: [master]
   pull_request:
     branches: [master]
+permissions:
+  contents: read
 concurrency:
   group: make-${{ github.ref }}
   cancel-in-progress: true
