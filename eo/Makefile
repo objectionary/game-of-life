@@ -15,6 +15,7 @@ build:
 
 test:
 	$(EO) test
+	bash tests/put.sh $(EO) --alone
 	bash tests/cycle.sh $(EO) --alone
 
 clean:
