@@ -62,7 +62,10 @@
       id.lt ^.args.length
       if.
         (^.args.at id).eq "put"
-        ^.putsFrom (id.plus 2) (acc.with (^.pair (^.args.at (id.plus 1))))
+        if.
+          (id.plus 1).lt ^.args.length
+          ^.putsFrom (id.plus 2) (acc.with (^.pair (^.args.at (id.plus 1))))
+          T "Option 'put' requires a coordinate"
         ^.putsFrom (id.plus 1) acc
       acc
 
@@ -116,6 +119,11 @@
   [] +> accepts-last-column
     eq. > @
       ((parse *).pair "3x3").at 1
+      2
+
+  [] +> reads-multiple-puts
+    eq. > @
+      ((parse (* "put" "1x1" "put" "2x3")).puts.at 1).at 1
       2
 
   [] +> accepts-zero-cycles
