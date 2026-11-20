@@ -14,7 +14,7 @@ build:
 	$(EO) dataize conway.life cycle 0
 
 test:
-	$(EO) test
+	$(EO) test --heap 2G
 	bash tests/put.sh $(EO) --alone
 	bash tests/cycle.sh $(EO) --alone
 
